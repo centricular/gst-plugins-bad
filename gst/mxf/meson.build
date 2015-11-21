@@ -1,0 +1,26 @@
+mxf_sources = [
+  'mxf.c',
+  'mxful.c',
+  'mxftypes.c',
+  'mxfmetadata.c',
+  'mxfessence.c',
+  'mxfquark.c',
+  'mxfmux.c',
+  'mxfdemux.c',
+  'mxfaes-bwf.c',
+  'mxfmpeg.c',
+  'mxfdv-dif.c',
+  'mxfalaw.c',
+  'mxfjpeg2000.c',
+  'mxfd10.c',
+  'mxfup.c',
+  'mxfvc3.c',
+  'mxfdms1.c',
+]
+
+gstmxf = library('gstmxf',
+  mxf_sources,
+  c_args : core_args,
+  include_directories : core_incs,
+  dependencies : [gstbase_dep, gstaudio_dep, gstvideo_dep],
+)
