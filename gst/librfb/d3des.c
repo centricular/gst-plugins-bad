@@ -27,7 +27,11 @@
  */
 
 #include "config.h"
+#ifdef HAVE_STDINT_H
+#include <stdint.h>
+#else
 #include "_stdint.h"
+#endif
 
 #include "d3des.h"
 

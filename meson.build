@@ -237,7 +237,6 @@ orc_dep = dependency('orc-0.4')
 zlib_dep = dependency('zlib')
 gio_dep = dependency('gio-2.0')
 gl_dep = dependency('gl')
-
 x_dep = dependency('x11', required : false)
 xfixes_dep = dependency('xfixes', required : false)
 xdamage_dep = dependency('xdamage', required : false)
