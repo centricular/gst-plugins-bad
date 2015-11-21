@@ -39,7 +39,11 @@
 #endif
 #endif
 #include <sys/types.h>
+#ifdef HAVE_STDINT_H
+#include <stdint.h>
+#else
 #include <_stdint.h>
+#endif
 #include <unistd.h>
 #include <string.h>
 
