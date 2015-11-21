@@ -20,7 +20,7 @@ cp_args = [
   '-Dvp8dx_bool_decoder_fill=gst_codecparsers_vp8dx_bool_decoder_fill',
 ]
 
-gst = library('gstcodecparsers-' + api_version,
+gstcodecparsers = library('gstcodecparsers-' + api_version,
   codecparser_sources,
   c_args : core_args + cp_args,
   include_directories : core_incs,
