@@ -207,6 +207,7 @@ cdata.set('SIZEOF_VOIDP', cc.sizeof('void*'))
 
 # FIXMES
 cdata.set('VERSION', '"@0@"'.format(version_str))
+cdata.set('DEFAULT_VIDEOSRC', '"FIXME"')
 cdata.set('PACKAGE', '"FIXME"')
 cdata.set('PACKAGE_NAME', '"FIXME"')
 cdata.set('GETTEXT_PACKAGE', '"FIXME"')
@@ -216,6 +217,7 @@ cdata.set('GST_LICENSE', '"FIXME"')
 
 # Mandatory GST deps
 gst_dep = dependency('gstreamer-1.0')
+gstapp_dep = dependency('gstreamer-app-1.0')
 gstvideo_dep = dependency('gstreamer-video-1.0')
 gstpbutils_dep = dependency('gstreamer-pbutils-1.0')
 gsttag_dep = dependency('gstreamer-tag-1.0')
