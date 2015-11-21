@@ -240,9 +240,14 @@ gl_dep = dependency('gl')
 x_dep = dependency('x11', required : false)
 xfixes_dep = dependency('xfixes', required : false)
 xdamage_dep = dependency('xdamage', required : false)
+dbus_dep = dependency('dbus-1', required : false)
 
 if gl_dep.found()
   cdata.set('HAVE_GL', 1)
+endif
+
+if dbus_dep.found()
+  cdata.set('HAVE_BLUEZ', 1)
 endif
 
 libm = find_library('m', required : false)
@@ -258,3 +263,4 @@ core_incs = include_directories('.', 'gst-libs')
 
 subdir('gst-libs')
 subdir('gst')
+subdir('sys')
