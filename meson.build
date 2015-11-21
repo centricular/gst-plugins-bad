@@ -214,6 +214,7 @@ cdata.set('GETTEXT_PACKAGE', '"FIXME"')
 cdata.set('GST_PACKAGE_NAME', '"FIXME"')
 cdata.set('GST_PACKAGE_ORIGIN', '"FIXME"')
 cdata.set('GST_LICENSE', '"FIXME"')
+cdata.set('LIBDIR', '"FIXME"')
 
 # Mandatory GST deps
 gst_dep = dependency('gstreamer-1.0')
