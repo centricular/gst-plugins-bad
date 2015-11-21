@@ -205,6 +205,12 @@ cdata.set('SIZEOF_LONG', cc.sizeof('long'))
 cdata.set('SIZEOF_SHORT', cc.sizeof('short'))
 cdata.set('SIZEOF_VOIDP', cc.sizeof('void*'))
 
+# FIXMES
+cdata.set('VERSION', '"@0@"'.format(version_str))
+cdata.set('PACKAGE', '"FIXME"')
+cdata.set('GST_PACKAGE_NAME', '"FIXME"')
+cdata.set('GST_PACKAGE_ORIGIN', '"FIXME"')
+
 # Mandatory GST deps
 gst_dep = dependency('gstreamer-1.0')
 gstvideo_dep = dependency('gstreamer-video-1.0')
@@ -246,3 +252,4 @@ core_args = ['-DHAVE_CONFIG_H']
 core_incs = include_directories('.', 'gst-libs')
 
 subdir('gst-libs')
+subdir('gst')
