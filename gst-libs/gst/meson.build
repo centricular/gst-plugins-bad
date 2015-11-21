@@ -1,1 +1,8 @@
 subdir('interfaces')
+subdir('basecamerabinsrc')
+subdir('codecparsers')
+subdir('insertbin')
+subdir('uridownloader')
+subdir('mpegts')
+subdir('base')
+subdir('video')
