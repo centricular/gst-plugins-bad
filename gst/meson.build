@@ -51,16 +51,21 @@ subdir('mpegdemux')
 subdir('mpegpsmux')
 subdir('mpegtsdemux')
 subdir('mpegtsmux')
+#did not work
 #subdir('mve')
-#subdir('mxf')
+subdir('mxf')
+#did not work
 #subdir('nuvdemux')
+#did not work
 #subdir('overlay')
+#did not work
 #subdir('patchdetect')
-#subdir('pcapparse')
-#subdir('pnm')
-#subdir('rawparse')
+subdir('pcapparse')
+subdir('pnm')
+subdir('rawparse')
+#did not work
 #subdir('real')
-#subdir('removesilence')
+subdir('removesilence')
 #subdir('rtjpeg')
 #subdir('sdi')
 #subdir('sdp')
