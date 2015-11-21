@@ -6,3 +6,6 @@ subdir('uridownloader')
 subdir('mpegts')
 subdir('base')
 subdir('video')
+if gl_dep.found()
+  subdir('gl')
+endif
