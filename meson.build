@@ -208,8 +208,11 @@ cdata.set('SIZEOF_VOIDP', cc.sizeof('void*'))
 # FIXMES
 cdata.set('VERSION', '"@0@"'.format(version_str))
 cdata.set('PACKAGE', '"FIXME"')
+cdata.set('PACKAGE_NAME', '"FIXME"')
+cdata.set('GETTEXT_PACKAGE', '"FIXME"')
 cdata.set('GST_PACKAGE_NAME', '"FIXME"')
 cdata.set('GST_PACKAGE_ORIGIN', '"FIXME"')
+cdata.set('GST_LICENSE', '"FIXME"')
 
 # Mandatory GST deps
 gst_dep = dependency('gstreamer-1.0')
