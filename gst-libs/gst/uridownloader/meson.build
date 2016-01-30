@@ -3,9 +3,9 @@ urid_sources = [
   'gsturidownloader.c',
 ]
 
-gsturidownloader = library('gstdownloader-' + api_version,
+gsturidownloader = library('gsturidownloader-' + api_version,
   urid_sources,
-  c_args : core_args,
+  c_args : core_args + [ '-DGST_USE_UNSTABLE_API' ],
   include_directories : core_incs,
   dependencies : [gst_dep],
 )

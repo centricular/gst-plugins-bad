@@ -9,7 +9,7 @@ tsdemux_sources = [
 
 gstmpegtsdemux = library('gstmpegtsdemux',
   tsdemux_sources,
-  c_args : core_args,
+  c_args : core_args + [ '-DGST_USE_UNSTABLE_API' ],
   include_directories : core_incs,
-  dependencies : [gstbase_dep, gsttag_dep, gstpbutils_dep],
+  dependencies : [ gstmpegts_dep, gsttag_dep, gstpbutils_dep, gstbase_dep ],
 )

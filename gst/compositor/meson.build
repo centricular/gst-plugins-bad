@@ -15,7 +15,7 @@ compo_h = configure_file(input : 'compositororc-dist.h',
 
 gstcompositor = library('gstcompositor',
   compositor_sources, compo_c,
-  c_args : core_args,
+  c_args : core_args + [ '-DGST_USE_UNSTABLE_API' ],
   include_directories : core_incs,
   link_with : [gstbadbase],
   dependencies : [gstbase_dep, gstvideo_dep, orc_dep, libm],
