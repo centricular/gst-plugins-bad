@@ -41,7 +41,6 @@ subdir('ivtc')
 subdir('jp2kdecimator')
 subdir('jpegformat')
 subdir('librfb')
-subdir('liveadder')
 subdir('midi')
 #did not work
 #subdir('mixmatrix')

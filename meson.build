@@ -1,13 +1,36 @@
-project('gstreamer-plugins-bad', 'c', version : '1.4.5',
-  default_options : ['c_std=gnu99', 'warning_level=1'])
+project('gst-plugins-bad', 'c', 'cpp',
+  version : '1.7.1.1',
+  meson_version : '>= 0.27.0',
+  default_options : [ 'warning_level=1',
+                      'c_std=gnu99',
+                      'buildtype=debugoptimized' ])
 
-version_str = meson.project_version()
-varr = version_str.split('.')
-version_major = varr[0]
-version_minor = varr[1]
-version_micro = varr[2]
-version_nano = 1
+gst_version = meson.project_version()
+version_arr = gst_version.split('.')
+gst_version_major = version_arr[0]
+gst_version_minor = version_arr[1]
+gst_version_micro = version_arr[2]
+if version_arr.length() == 4
+  gst_version_nano = version_arr[3]
+else
+  gst_version_nano = 0
+endif
+
+glib_req = '>= 2.40.0'
+gst_req = '>= @0@.@1@.0'.format(gst_version_major, gst_version_minor)
+
 api_version = '1.0'
+soversion = 0
+# maintaining compatibility with the previous libtool versioning
+# current = minor * 100 + micro
+# FIXME: should be able to convert string to int somehow so we can just do maths
+if gst_version_micro == '0' or gst_version_micro == '1' or gst_version_micro == '2' or gst_version_micro == '3' or gst_version_micro == '4' or gst_version_micro == '5' or gst_version_micro == '6' or gst_version_micro == '7' or gst_version_micro == '8' or gst_version_micro == '9'
+  libversion = '0.' + gst_version_minor + '0' + gst_version_micro + '.0'
+else
+  libversion = '0.' + gst_version_minor + gst_version_micro + '.0'
+endif
+
+plugins_install_dir = '@0@/gstreamer-1.0'.format(get_option('libdir'))
 
 cc = meson.get_compiler('c')
 cdata = configuration_data()
@@ -205,37 +228,40 @@ cdata.set('SIZEOF_LONG', cc.sizeof('long'))
 cdata.set('SIZEOF_SHORT', cc.sizeof('short'))
 cdata.set('SIZEOF_VOIDP', cc.sizeof('void*'))
 
-# FIXMES
-cdata.set('VERSION', '"@0@"'.format(version_str))
+cdata.set('VERSION', '"@0@"'.format(gst_version))
+cdata.set('PACKAGE', '"gst-plugins-bad"')
+cdata.set('PACKAGE_VERSION', '"@0@"'.format(gst_version))
+cdata.set('PACKAGE_BUGREPORT', '"http://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer"')
+cdata.set('PACKAGE_NAME', '"GStreamer Bad Plug-ins"')
+cdata.set('GETTEXT_PACKAGE', '"gst-plugins-bad-1.0"')
+cdata.set('GST_API_VERSION', '"@0@"'.format(api_version))
+cdata.set('GST_PACKAGE_NAME', '"GStreamer Bad Plug-ins"')
+cdata.set('GST_PACKAGE_ORIGIN', '"Unknown package origin"')
+cdata.set('GST_LICENSE', '"LGPL"')
+cdata.set('LIBDIR', '"@0@"'.format(get_option('libdir')))
 cdata.set('DEFAULT_VIDEOSRC', '"FIXME"')
-cdata.set('PACKAGE', '"FIXME"')
-cdata.set('PACKAGE_NAME', '"FIXME"')
-cdata.set('GETTEXT_PACKAGE', '"FIXME"')
-cdata.set('GST_PACKAGE_NAME', '"FIXME"')
-cdata.set('GST_PACKAGE_ORIGIN', '"FIXME"')
-cdata.set('GST_LICENSE', '"FIXME"')
-cdata.set('LIBDIR', '"FIXME"')
 
 # Mandatory GST deps
-gst_dep = dependency('gstreamer-1.0')
-gstapp_dep = dependency('gstreamer-app-1.0')
-gstvideo_dep = dependency('gstreamer-video-1.0')
-gstpbutils_dep = dependency('gstreamer-pbutils-1.0')
-gsttag_dep = dependency('gstreamer-tag-1.0')
-gstfft_dep = dependency('gstreamer-fft-1.0')
-gstaudio_dep = dependency('gstreamer-audio-1.0')
-gstbase_dep = dependency('gstreamer-base-1.0')
-gstriff_dep = dependency('gstreamer-riff-1.0')
-gstrtp_dep = dependency('gstreamer-rtp-1.0')
-gstnet_dep = dependency('gstreamer-net-1.0')
-gstsdp_dep = dependency('gstreamer-sdp-1.0')
-gstrtsp_dep = dependency('gstreamer-rtsp-1.0')
-gstcheck_dep = dependency('gstreamer-check-1.0')
-gstcontroller_dep = dependency('gstreamer-controller-1.0')
+gst_dep = dependency('gstreamer-1.0', version : gst_req)
+gstapp_dep = dependency('gstreamer-app-1.0', version : gst_req)
+gstvideo_dep = dependency('gstreamer-video-1.0', version : gst_req)
+gstpbutils_dep = dependency('gstreamer-pbutils-1.0', version : gst_req)
+gsttag_dep = dependency('gstreamer-tag-1.0', version : gst_req)
+gstfft_dep = dependency('gstreamer-fft-1.0', version : gst_req)
+gstaudio_dep = dependency('gstreamer-audio-1.0', version : gst_req)
+gstbase_dep = dependency('gstreamer-base-1.0', version : gst_req)
+gstriff_dep = dependency('gstreamer-riff-1.0', version : gst_req)
+gstrtp_dep = dependency('gstreamer-rtp-1.0', version : gst_req)
+gstnet_dep = dependency('gstreamer-net-1.0', version : gst_req)
+gstsdp_dep = dependency('gstreamer-sdp-1.0', version : gst_req)
+gstrtsp_dep = dependency('gstreamer-rtsp-1.0', version : gst_req)
+gstcheck_dep = dependency('gstreamer-check-1.0', version : gst_req)
+gstcontroller_dep = dependency('gstreamer-controller-1.0', version : gst_req)
 
 orc_dep = dependency('orc-0.4')
 zlib_dep = dependency('zlib')
-gio_dep = dependency('gio-2.0')
+glib_dep = dependency('glib-2.0', version : glib_req)
+gio_dep = dependency('gio-2.0', version : glib_req)
 gl_dep = dependency('gl')
 x_dep = dependency('x11', required : false)
 xfixes_dep = dependency('xfixes', required : false)

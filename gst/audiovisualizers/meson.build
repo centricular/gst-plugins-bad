@@ -1,6 +1,5 @@
 audiovis_sources = [
   'plugin.c',
-  'gstaudiovisualizer.c',
   'gstspacescope.c',
   'gstspectrascope.c',
   'gstsynaescope.c',
@@ -11,5 +10,5 @@ gstaudiovisualizers = library('gstaudiovisualizers',
   audiovis_sources,
   c_args : core_args,
   include_directories : core_incs,
-  dependencies : [gstbase_dep, gstaudio_dep, gstvideo_dep, gstfft_dep, libm],
+  dependencies : [gstbase_dep, gstpbutils_dep, gstaudio_dep, gstvideo_dep, gstfft_dep, libm],
 )

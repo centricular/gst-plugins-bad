@@ -27,9 +27,11 @@ mpegts_c = custom_target('mpegtsenum_c',
   input : mpegts_headers,
   command : [mkenums, '@OUTPUT@', '@INPUT@'])
 
-gst = library('gstmpegts-' + api_version,
+gstmpegts = library('gstmpegts-' + api_version,
   mpegts_sources, mpegts_h, mpegts_c,
   c_args : core_args + ['-DGST_USE_UNSTABLE_API'],
   include_directories : core_incs,
   dependencies : [gst_dep],
 )
+gstmpegts_dep = declare_dependency(link_with : gstmpegts,
+  sources : [ mpegts_h ])
