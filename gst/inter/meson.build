@@ -13,5 +13,5 @@ gstinter = library('gstinter',
   inter_sources,
   c_args : core_args,
   include_directories : core_incs,
-  dependencies : [gstbase_dep],
+  dependencies : [ gstaudio_dep, gstvideo_dep, gstbase_dep ],
 )

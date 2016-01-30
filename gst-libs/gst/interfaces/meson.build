@@ -24,3 +24,6 @@ gstphotography = library('gstphotography-' + api_version,
   include_directories : core_incs,
   dependencies : [gst_dep],
 )
+
+gstphotography_dep = declare_dependency(link_with : gstphotography,
+  sources : [ photoenum_h ])
