@@ -1,8 +1,13 @@
 siren_sources = [
   'gstsiren.c',
-  'gstsirendec.c', 'gstsirendec.h',
-  'gstsirenenc.c', 'gstsirenenc.h',
-  'common.c', 'dct4.c', 'decoder.c', 'encoder.c', 'huffman.c',
+  'gstsirendec.c',
+  'gstsirenenc.c',
+  'common.c',
+  'dct4.c',
+  'decoder.c',
+  'encoder.c',
+  'huffman.c',
+  'rmlt.c',
 ]
 
 gstsiren = library('gstsiren',

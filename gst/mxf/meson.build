@@ -22,5 +22,6 @@ gstmxf = library('gstmxf',
   mxf_sources,
   c_args : core_args + [ '-DGST_USE_UNSTABLE_API' ],
   include_directories : core_incs,
+  link_with : gstbadbase,
   dependencies : [gstbase_dep, gstaudio_dep, gstvideo_dep],
 )

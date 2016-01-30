@@ -1,5 +1,6 @@
 audiomixer_sources = [
-  'gstaudiomixer.c'
+  'gstaudiomixer.c',
+  'gstaudiointerleave.c',
 ]
 
 aumix_c = configure_file(input : 'gstaudiomixerorc-dist.c',
@@ -17,5 +18,6 @@ gstaudiomixer = library('gstaudiomixer',
   audiomixer_sources, aumix_c,
   c_args : core_args + [ '-DGST_USE_UNSTABLE_API' ],
   include_directories : core_incs,
-  dependencies : [gstbase_dep, orc_dep],
+  link_with : [ gstbadaudio, gstbadbase ],
+  dependencies : [ gstaudio_dep, gstbase_dep, orc_dep ],
 )
