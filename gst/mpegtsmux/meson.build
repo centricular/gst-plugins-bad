@@ -1,15 +1,14 @@
-subdir('tsmux')
-
 tsmux_sources = [
   'mpegtsmux.c',
   'mpegtsmux_aac.c',
   'mpegtsmux_ttxt.c',
+  'tsmux/tsmux.c',
+  'tsmux/tsmuxstream.c',
 ]
 
-gstmptedtsmux = library('gstmpegtsmux',
+gstmpegtsmux = library('gstmpegtsmux',
   tsmux_sources,
-  c_args : core_args,
+  c_args : core_args + [ '-DGST_USE_UNSTABLE_API' ],
   include_directories : core_incs,
-  link_with : tsmux,
-  dependencies : [gstbase_dep, gstvideo_dep],
+  dependencies : [ gstmpegts_dep, gstvideo_dep, gstbase_dep ],
 )

@@ -15,7 +15,7 @@ aumix_h = configure_file(input : 'gstaudiomixerorc-dist.h',
 
 gstaudiomixer = library('gstaudiomixer',
   audiomixer_sources, aumix_c,
-  c_args : core_args,
+  c_args : core_args + [ '-DGST_USE_UNSTABLE_API' ],
   include_directories : core_incs,
   dependencies : [gstbase_dep, orc_dep],
 )
