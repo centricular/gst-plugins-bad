@@ -1,19 +1,13 @@
-rfb_sources = [
+rfbsrc_sources = [
+  'gstrfbsrc.c',
   'rfbbuffer.c',
   'rfbdecoder.c',
   'd3des.c',
 ]
 
-rfb = library('rfb', rfb_sources,
-  c_args : core_args,
-  include_directories : [core_incs, include_directories('..')],
-  dependencies : [gst_dep, gio_dep],
-)
-
 gstrfbsrc = library('gstrfbsrc',
-  'gstrfbsrc.c',
+  rfbsrc_sources,
   c_args : core_args,
-  include_directories : [core_incs, include_directories('..')],
-  link_with : rfb,
-  dependencies : [gstbase_dep, gstvideo_dep],
+  include_directories : [ core_incs, include_directories('..') ],
+  dependencies : [ gstbase_dep, gstvideo_dep, gio_dep ],
 )
