@@ -55,6 +55,7 @@ subdir('mpegtsmux')
 subdir('mxf')
 #did not work
 #subdir('nuvdemux')
+subdir('onvif')
 #did not work
 #subdir('overlay')
 #did not work
@@ -67,6 +68,7 @@ subdir('rawparse')
 subdir('removesilence')
 #did not work
 #subdir('rtjpeg')
+subdir('rtp')
 #did not work
 #subdir('sdi')
 subdir('sdp')
@@ -82,6 +84,7 @@ subdir('subenc')
 #did not work
 #subdir('vbidec')
 subdir('videofilters')
+subdir('videoframe_audiolevel')
 # did not work
 #subdir('videomeasure')
 subdir('videoparsers')
