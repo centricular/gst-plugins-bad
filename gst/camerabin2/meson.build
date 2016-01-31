@@ -9,8 +9,8 @@ camerabin2_sources = [
 
 gstcamerabin2 = library('gstcamerabin',
   camerabin2_sources,
-  c_args : core_args + ['-DGST_USE_UNSTABLE_API'],
-  include_directories : core_incs,
+  c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
+  include_directories : gst_plugins_bad_incs,
   link_with : gstbasecamerabin,
   dependencies : [ gstphotography_dep, gsttag_dep, gstapp_dep, gstpbutils_dep, gstbase_dep ],
   install : true,

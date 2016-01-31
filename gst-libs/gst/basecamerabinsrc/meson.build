@@ -6,7 +6,7 @@ camerabin_sources = [
 
 gstbasecamerabin = library('gstbasecamerabinsrc-' + api_version,
   camerabin_sources,
-  c_args : core_args + ['-DGST_USE_UNSTABLE_API'],
-  include_directories : core_incs,
+  c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
+  include_directories : gst_plugins_bad_incs,
   dependencies : [gstbase_dep],
 )

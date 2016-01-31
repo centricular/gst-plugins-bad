@@ -281,8 +281,8 @@ configure_file(input : 'config.h.meson',
   output : 'config.h',
   configuration : cdata)
 
-core_args = ['-DHAVE_CONFIG_H']
-core_incs = include_directories('.', 'gst-libs')
+gst_plugins_bad_args = ['-DHAVE_CONFIG_H']
+gst_plugins_bad_incs = include_directories('.', 'gst-libs')
 
 subdir('gst-libs')
 subdir('gst')

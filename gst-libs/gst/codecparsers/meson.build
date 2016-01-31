@@ -22,7 +22,7 @@ cp_args = [
 
 gstcodecparsers = library('gstcodecparsers-' + api_version,
   codecparser_sources,
-  c_args : core_args + cp_args,
-  include_directories : core_incs,
+  c_args : gst_plugins_bad_args + cp_args,
+  include_directories : gst_plugins_bad_incs,
   dependencies : [gst_dep, libm],
 )
