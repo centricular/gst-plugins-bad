@@ -19,4 +19,6 @@ gstcompositor = library('gstcompositor',
   include_directories : core_incs,
   link_with : [ gstbadvideo, gstbadbase ],
   dependencies : [ gstvideo_dep, gstbase_dep, orc_dep, libm ],
+  install : true,
+  install_dir : plugins_install_dir,
 )

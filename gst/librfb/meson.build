@@ -10,4 +10,6 @@ gstrfbsrc = library('gstrfbsrc',
   c_args : core_args,
   include_directories : [ core_incs, include_directories('..') ],
   dependencies : [ gstbase_dep, gstvideo_dep, gio_dep ],
+  install : true,
+  install_dir : plugins_install_dir,
 )

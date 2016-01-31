@@ -10,4 +10,6 @@ gstrtpbad = library('gstrtpbad',
   include_directories : core_incs,
   link_with : gstcodecparsers,
   dependencies : [ gstpbutils_dep, gstrtp_dep ],
+  install : true,
+  install_dir : plugins_install_dir,
 )
