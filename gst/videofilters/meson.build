@@ -10,4 +10,6 @@ gstvideofiltersbad = library('gstvideofiltersbad',
   c_args : core_args,
   include_directories : core_incs,
   dependencies : [ gstvideo_dep, gstbase_dep, orc_dep, libm ],
+  install : true,
+  install_dir : plugins_install_dir,
 )

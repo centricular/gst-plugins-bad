@@ -20,4 +20,6 @@ gstaudiomixer = library('gstaudiomixer',
   include_directories : core_incs,
   link_with : [ gstbadaudio, gstbadbase ],
   dependencies : [ gstaudio_dep, gstbase_dep, orc_dep ],
+  install : true,
+  install_dir : plugins_install_dir,
 )
