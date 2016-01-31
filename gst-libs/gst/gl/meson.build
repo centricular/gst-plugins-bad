@@ -40,7 +40,7 @@ configure_file(input : 'gstglconfig.h.meson',
 
 gstgl = library('gstgl-' + api_version,
   gl_sources,
-  c_args : core_args + ['-DGST_USE_UNSTABLE_API'],
-  include_directories : core_incs,
+  c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
+  include_directories : gst_plugins_bad_incs,
   dependencies : [gstbase_dep, gstvideo_dep],
 )

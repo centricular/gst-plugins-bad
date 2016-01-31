@@ -22,8 +22,10 @@ if bluez_dep.found() and gio_unix_dep.found()
 
   gstbluez = library('gstbluez',
     bluez_sources, bluez_ch,
-    c_args : core_args,
-    include_directories : core_incs,
+    c_args : gst_plugins_bad_args,
+    include_directories : gst_plugins_bad_incs,
     dependencies : [ gstaudio_dep, gstrtp_dep, gstbase_dep, gio_unix_dep, bluez_dep ],
+    install : true,
+    install_dir : plugins_install_dir,
   )
 endif
