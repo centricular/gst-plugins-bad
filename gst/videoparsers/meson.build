@@ -18,4 +18,6 @@ gstvideoparsersbad = library('gstvideoparsersbad',
   include_directories : core_incs,
   link_with : [gstcodecparsers],
   dependencies : [gstbase_dep, gstpbutils_dep, gstvideo_dep],
+  install : true,
+  install_dir : plugins_install_dir,
 )

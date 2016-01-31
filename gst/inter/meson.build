@@ -14,4 +14,6 @@ gstinter = library('gstinter',
   c_args : core_args,
   include_directories : core_incs,
   dependencies : [ gstaudio_dep, gstvideo_dep, gstbase_dep ],
+  install : true,
+  install_dir : plugins_install_dir,
 )

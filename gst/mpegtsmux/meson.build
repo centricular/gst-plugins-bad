@@ -12,4 +12,6 @@ gstmpegtsmux = library('gstmpegtsmux',
   c_args : core_args + [ '-DGST_USE_UNSTABLE_API' ],
   include_directories : core_incs,
   dependencies : [ gstmpegts_dep, gstpbutils_dep, gstaudio_dep, gstvideo_dep, gstbase_dep ],
+  install : true,
+  install_dir : plugins_install_dir,
 )

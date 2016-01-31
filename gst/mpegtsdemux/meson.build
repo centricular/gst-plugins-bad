@@ -13,4 +13,6 @@ gstmpegtsdemux = library('gstmpegtsdemux',
   include_directories : core_incs,
   link_with : gstcodecparsers,
   dependencies : [ gstmpegts_dep, gsttag_dep, gstpbutils_dep, gstbase_dep ],
+  install : true,
+  install_dir : plugins_install_dir,
 )

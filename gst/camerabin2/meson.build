@@ -13,4 +13,6 @@ gstcamerabin2 = library('gstcamerabin',
   include_directories : core_incs,
   link_with : gstbasecamerabin,
   dependencies : [ gstphotography_dep, gsttag_dep, gstapp_dep, gstpbutils_dep, gstbase_dep ],
+  install : true,
+  install_dir : plugins_install_dir,
 )

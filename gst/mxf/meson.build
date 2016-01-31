@@ -24,4 +24,6 @@ gstmxf = library('gstmxf',
   include_directories : core_incs,
   link_with : gstbadbase,
   dependencies : [gstbase_dep, gstaudio_dep, gstvideo_dep],
+  install : true,
+  install_dir : plugins_install_dir,
 )
