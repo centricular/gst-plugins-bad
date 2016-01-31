@@ -14,8 +14,8 @@ vparse_sources = [
 
 gstvideoparsersbad = library('gstvideoparsersbad',
   vparse_sources,
-  c_args : core_args + [ '-DGST_USE_UNSTABLE_API' ],
-  include_directories : core_incs,
+  c_args : gst_plugins_bad_args + [ '-DGST_USE_UNSTABLE_API' ],
+  include_directories : gst_plugins_bad_incs,
   link_with : [gstcodecparsers],
   dependencies : [gstbase_dep, gstpbutils_dep, gstvideo_dep],
   install : true,

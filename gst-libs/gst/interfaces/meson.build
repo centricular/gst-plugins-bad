@@ -20,8 +20,8 @@ photoenum_c = custom_target('photoenum_c',
 
 gstphotography = library('gstphotography-' + api_version,
   photography_sources, photoenum_h, photoenum_c,
-  c_args : core_args + ['-DGST_USE_UNSTABLE_API'],
-  include_directories : core_incs,
+  c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
+  include_directories : gst_plugins_bad_incs,
   dependencies : [gst_dep],
 )
 

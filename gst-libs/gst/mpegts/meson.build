@@ -29,8 +29,8 @@ mpegts_c = custom_target('mpegtsenum_c',
 
 gstmpegts = library('gstmpegts-' + api_version,
   mpegts_sources, mpegts_h, mpegts_c,
-  c_args : core_args + ['-DGST_USE_UNSTABLE_API'],
-  include_directories : core_incs,
+  c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
+  include_directories : gst_plugins_bad_incs,
   dependencies : [gst_dep],
 )
 gstmpegts_dep = declare_dependency(link_with : gstmpegts,

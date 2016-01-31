@@ -9,8 +9,8 @@ tsmux_sources = [
 
 gstmpegtsmux = library('gstmpegtsmux',
   tsmux_sources,
-  c_args : core_args + [ '-DGST_USE_UNSTABLE_API' ],
-  include_directories : core_incs,
+  c_args : gst_plugins_bad_args + [ '-DGST_USE_UNSTABLE_API' ],
+  include_directories : gst_plugins_bad_incs,
   dependencies : [ gstmpegts_dep, gstpbutils_dep, gstaudio_dep, gstvideo_dep, gstbase_dep ],
   install : true,
   install_dir : plugins_install_dir,
