@@ -68,7 +68,6 @@ subdir('rawparse')
 subdir('removesilence')
 #did not work
 #subdir('rtjpeg')
-subdir('rtp')
 #did not work
 #subdir('sdi')
 subdir('sdp')
