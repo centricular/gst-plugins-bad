@@ -17,23 +17,10 @@ debugutils_headers = [
   'gstwatchdog.h',
 ]
 
-mkmarsh = find_program('gen_marshal.py')
-
-dbgmarsh_h = custom_target('dbgmarsh_h',
-  output : 'debugutils-marshal.h',
-  input : 'debugutils-marshal.list',
-  command : [mkmarsh, '@OUTPUT@', '@INPUT@', 'debugutils'])
-
-dbgmarsh_c = custom_target('dbgmarsh_c',
-  output : 'debugutils-marshal.c',
-  input : 'debugutils-marshal.list',
-  command : [mkmarsh, '@OUTPUT@', '@INPUT@', 'debugutils'])
-
-
 gstdebugutils = library('gstdebugutils',
-  debugutils_sources, dbgmarsh_c, dbgmarsh_h,
+  debugutils_sources,
   c_args : gst_plugins_bad_args,
-  include_directories : [gst_plugins_bad_incs, include_directories('../../gst-libs/gst/mpegts')],
+  include_directories : gst_plugins_bad_incs,
   dependencies : [gstbase_dep, gstvideo_dep],
   install : true,
   install_dir : plugins_install_dir,
