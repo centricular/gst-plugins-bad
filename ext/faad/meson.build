@@ -6,7 +6,7 @@ if have_faad and not have_faad_2_7
   message('Found faad2, but too old (< v2.7.0)')
 endif
 
-faad_dep = find_library('faad')
+faad_dep = find_library('faad', required : false)
 
 if faad_dep.found() and have_faad_2_7
   gstfaad = library('gstfaad',
