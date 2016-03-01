@@ -1,13 +1,18 @@
-subdir('interfaces')
+subdir('base')
+subdir('uridownloader')
+
+subdir('adaptivedemux')
+subdir('audio')
 subdir('basecamerabinsrc')
 subdir('codecparsers')
 subdir('insertbin')
-subdir('uridownloader')
-subdir('adaptivedemux')
+subdir('interfaces')
 subdir('mpegts')
-subdir('base')
-subdir('audio')
+subdir('player')
 subdir('video')
+
+# FIXME: port configure.ac logic
+#subdir('wayland')
 if gl_dep.found()
 #  subdir('gl')
 endif
