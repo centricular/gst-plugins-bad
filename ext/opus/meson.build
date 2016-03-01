@@ -11,7 +11,8 @@ if opus_dep.found()
     opus_sources,
     c_args : gst_plugins_bad_args,
     include_directories : gst_plugins_bad_incs,
-    dependencies : [ gstrtp_dep, gstpbutils_dep, gstaudio_dep, opus_dep ],
+    dependencies : [gstrtp_dep, gstpbutils_dep, gstaudio_dep,
+                    gsttag_dep, opus_dep, libm],
     install : true,
     install_dir : plugins_install_dir,
   )

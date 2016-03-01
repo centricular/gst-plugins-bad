@@ -24,7 +24,7 @@ gstgaudioeffects = library('gstgaudioeffects',
   gaudio_sources, gaudio_c,
   c_args : gst_plugins_bad_args,
   include_directories : gst_plugins_bad_incs,
-  dependencies : [gstbase_dep, gstvideo_dep, orc_dep],
+  dependencies : [gstbase_dep, gstvideo_dep, orc_dep, libm],
   install : true,
   install_dir : plugins_install_dir,
 )
