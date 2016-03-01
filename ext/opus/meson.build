@@ -1,12 +1,7 @@
 opus_sources = [
   'gstopus.c',
-  'gstopuscommon.c',
-  'gstopusdec.c',
-  'gstopusenc.c',
   'gstopusheader.c',
   'gstopusparse.c',
-  'gstrtpopusdepay.c',
-  'gstrtpopuspay.c',
 ]
 
 opus_dep = dependency('opus', version : '>= 0.9.4', required : false)
