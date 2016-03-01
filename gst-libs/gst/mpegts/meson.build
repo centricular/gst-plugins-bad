@@ -31,7 +31,13 @@ gstmpegts = library('gstmpegts-' + api_version,
   mpegts_sources, mpegts_h, mpegts_c,
   c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
   include_directories : gst_plugins_bad_incs,
+  version : libversion,
+  soversion : soversion,
   dependencies : [gst_dep],
+  # Only used with MSVC
+  module_defs_file: meson.source_root() + '/win32/common/libgstmpegts.def',
 )
+# TODO: generate gir
+
 gstmpegts_dep = declare_dependency(link_with : gstmpegts,
-  sources : [ mpegts_h ])
+  sources : [mpegts_h])
