@@ -1,0 +1,38 @@
+gstplayer_sources = [
+  'gstplayer.c',
+  'gstplayer-signal-dispatcher.c',
+  'gstplayer-video-renderer.c',
+  'gstplayer-media-info.c',
+  'gstplayer-g-main-context-signal-dispatcher.c',
+  'gstplayer-video-overlay-video-renderer.c',
+  'gstplayer-visualization.c',
+]
+
+gstplayer_headers = [
+  'player.h',
+  'gstplayer.h',
+  'gstplayer-types.h',
+  'gstplayer-signal-dispatcher.h',
+  'gstplayer-video-renderer.h',
+  'gstplayer-media-info.h',
+  'gstplayer-g-main-context-signal-dispatcher.h',
+  'gstplayer-video-overlay-video-renderer.h',
+  'gstplayer-visualization.h',
+]
+
+install_headers(gstplayer_headers, subdir : 'gstreamer-' + api_version + '/gst/player/')
+
+gstplayer = library('gstplayer-' + api_version,
+  gstplayer_sources,
+  include_directories : gst_plugins_bad_incs,
+  c_args : gst_plugins_bad_args,
+  version : libversion,
+  soversion : soversion,
+  dependencies : [gst_dep, gstbase_dep, gstvideo_dep, gstaudio_dep,
+                  gsttag_dep, gstpbutils_dep],
+  # Only used with MSVC
+  module_defs_file: meson.source_root() + '/win32/common/libgstplayer.def',
+)
+# TODO: gir
+
+gstplayer_dep = declare_dependency(link_with : gstplayer)
