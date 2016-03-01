@@ -12,7 +12,7 @@ if xml2_dep.found()
     c_args : gst_plugins_bad_args + [ '-DGST_USE_UNSTABLE_API' ],
     include_directories : gst_plugins_bad_incs,
     link_with : gstadaptivedemux,
-    dependencies : [ gsttag_dep, gstnet_dep, gio_dep, xml2_dep ],
+    dependencies : [ gsttag_dep, gstnet_dep, gstbase_dep, gio_dep, xml2_dep ],
     install : true,
     install_dir : plugins_install_dir,
   )
