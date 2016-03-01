@@ -24,5 +24,9 @@ gstcodecparsers = library('gstcodecparsers-' + api_version,
   codecparser_sources,
   c_args : gst_plugins_bad_args + cp_args,
   include_directories : gst_plugins_bad_incs,
-  dependencies : [gst_dep, libm],
+  version : libversion,
+  soversion : soversion,
+  dependencies : [gst_dep, gstbase_dep, libm],
+  # Only used with MSVC
+  module_defs_file: meson.source_root() + '/win32/common/libgstcodecparsers.def',
 )
