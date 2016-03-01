@@ -278,6 +278,17 @@ libm = find_library('m', required : false)
 bz2lib = find_library('bz2', required : false)
 jpeglib = find_library('jpeg', required : false)
 
+# FIXME: find_library doesn't work on Windows, so we add this manually
+if host_machine.system() == 'windows'
+  if cc.get_id() == 'msvc'
+    winsock2_link_args = ['ws2_32.lib']
+  else
+    winsock2_link_args = ['-lws2_32']
+  endif
+else
+  winsock2_link_args = []
+endif
+
 configure_file(input : 'config.h.meson',
   output : 'config.h',
   configuration : cdata)
