@@ -259,6 +259,12 @@ gstcheck_dep = dependency('gstreamer-check-1.0', version : gst_req)
 gstcontroller_dep = dependency('gstreamer-controller-1.0', version : gst_req)
 
 orc_dep = dependency('orc-0.4', required : false)
+if orc_dep.found()
+  cdata.set('HAVE_ORC', 1)
+else
+  cdata.set('DISABLE_ORC', 1)
+endif
+
 #zlib_dep = dependency('zlib')
 glib_dep = dependency('glib-2.0', version : glib_req)
 gio_dep = dependency('gio-2.0', version : glib_req)
