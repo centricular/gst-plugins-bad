@@ -12,3 +12,5 @@ gstbadbase = library('gstbadbase-' + api_version,
   # Only used with MSVC
   module_defs_file: meson.source_root() + '/win32/common/libgstbadbase.def',
 )
+
+gstbadbase_dep = declare_dependency(link_with : gstbadbase)
