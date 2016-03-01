@@ -5,7 +5,7 @@
 # make special characters such as \n go through all
 # backends is a fool's errand.
 
-import sys, os, subprocess
+import sys, os, shutil, subprocess
 
 ofilename = sys.argv[1]
 headers = sys.argv[2:]
@@ -40,7 +40,10 @@ if ofilename.endswith('.h'):
 else:
     arg_array = c_array
 
-pc = subprocess.Popen(['glib-mkenums'] + arg_array + headers, stdout=subprocess.PIPE)
+cmd = [shutil.which('perl'), shutil.which('glib-mkenums')]
+cmd_array = cmd + arg_array + headers
+
+pc = subprocess.Popen(cmd_array, stdout=subprocess.PIPE)
 (stdo, _) = pc.communicate()
 if pc.returncode != 0:
     sys.exit(pc.returncode)
