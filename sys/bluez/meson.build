@@ -6,8 +6,10 @@ bluez_sources = [
   'gstavdtputil.c'
 ]
 
-if bluez_dep.found() and gio_unix_dep.found()
+bluez_dep = dependency('bluez', version : '>= 5.0', required : false)
+gio_unix_dep = dependency('gio-unix-2.0', version : glib_req, required : false)
 
+if bluez_dep.found() and gio_unix_dep.found()
   # FIXME: do we really need the meson.current_build_dir() here? Shouldn't
   # the custom command be executed with the current build directoy as working
   # directory? Without this, bluez.[ch] are created in the top-level build dir!
