@@ -211,7 +211,6 @@ check_functions = [
 # check token HAVE_WININET
 # check token HAVE_WINKS
 # check token HAVE_WINSCREENCAP
-# check token HAVE_X11
 # check token HAVE_XVID
 # check token HAVE_ZBAR
 ]
@@ -268,30 +267,21 @@ gstcheck_dep = dependency('gstreamer-check-1.0', version : gst_req)
 gstcontroller_dep = dependency('gstreamer-controller-1.0', version : gst_req)
 
 orc_dep = dependency('orc-0.4', required : false)
+libm = find_library('m', required : false)
+glib_dep = dependency('glib-2.0', version : glib_req)
+gio_dep = dependency('gio-2.0', version : glib_req)
+gmodule_dep = dependency('gmodule-2.0', version : glib_req)
+x11_dep = dependency('x11', required : false)
+
 if orc_dep.found()
   cdata.set('HAVE_ORC', 1)
 else
   cdata.set('DISABLE_ORC', 1)
 endif
 
-#zlib_dep = dependency('zlib')
-glib_dep = dependency('glib-2.0', version : glib_req)
-gio_dep = dependency('gio-2.0', version : glib_req)
-gmodule_dep = dependency('gmodule-2.0', version : glib_req)
-gl_dep = dependency('gl', required : false)
-x_dep = dependency('x11', required : false)
-xfixes_dep = dependency('xfixes', required : false)
-xdamage_dep = dependency('xdamage', required : false)
-bluez_dep = dependency('bluez', version : '>= 5.0', required : false)
-gio_unix_dep = dependency('gio-unix-2.0', version : glib_req, required : false)
-
-if gl_dep.found()
-  cdata.set('HAVE_GL', 1)
+if x11_dep.found()
+  cdata.set('HAVE_X11', 1)
 endif
-
-libm = find_library('m', required : false)
-bz2lib = find_library('bz2', required : false)
-jpeglib = find_library('jpeg', required : false)
 
 # FIXME: find_library doesn't work on Windows, so we add this manually
 if host_machine.system() == 'windows'

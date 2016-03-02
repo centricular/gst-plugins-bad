@@ -21,7 +21,7 @@ glconf = configuration_data()
 
 glconf.set10('GST_GL_HAVE_OPENGL', gl_dep.found())
 
-if x_dep.found()
+if x11_dep.found()
   gl_sources += [
     'x11/gstgldisplay_x11.c',
     'x11/gstglwindow_x11.c',
