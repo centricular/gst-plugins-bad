@@ -1,4 +1,5 @@
 codecparser_sources = [
+  'gstjpegparser.c',
   'gstmpegvideoparser.c',
   'gsth264parser.c',
   'gstvc1parser.c',
@@ -6,6 +7,8 @@ codecparser_sources = [
   'gsth265parser.c',
   'gstvp8parser.c',
   'gstvp8rangedecoder.c',
+  'gstvp9parser.c',
+  'vp9utils.c',
   'parserutils.c',
   'nalutils.c',
   'dboolhuff.c',
