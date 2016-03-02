@@ -239,7 +239,16 @@ cdata.set('GST_PACKAGE_NAME', '"GStreamer Bad Plug-ins"')
 cdata.set('GST_PACKAGE_ORIGIN', '"Unknown package origin"')
 cdata.set('GST_LICENSE', '"LGPL"')
 cdata.set('LIBDIR', '"@0@"'.format(get_option('libdir')))
-cdata.set('DEFAULT_VIDEOSRC', '"FIXME"')
+
+# FIXME: This should be exposed as a configuration option
+host_system = host_machine.system()
+if host_system == 'linux'
+  cdata.set('DEFAULT_VIDEOSRC', '"v4l2src"')
+elif host_system == 'osx'
+  cdata.set('DEFAULT_VIDEOSRC', '"avfvideosrc"')
+else
+  cdata.set('DEFAULT_VIDEOSRC', '"videotestsrc"')
+endif
 
 # Mandatory GST deps
 gst_dep = dependency('gstreamer-1.0', version : gst_req)
