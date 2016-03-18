@@ -12,7 +12,7 @@ flite_libs = [
 
 flite_deps = [ ]
 foreach flite_lib : flite_libs
-  dep = find_library(flite_lib, required : false)
+  dep = cc.find_library(flite_lib, required : false)
   if dep.found()
     flite_deps += [ dep ]
   endif

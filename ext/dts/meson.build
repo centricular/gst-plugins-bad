@@ -1,7 +1,7 @@
 dca_dep = dependency('libdca', required : false)
 
 if not dca_dep.found() and cc.has_function('dca_init', prefix : '#include <dca.h>')
-  dca_dep = find_library('dca', required : false)
+  dca_dep = cc.find_library('dca', required : false)
 endif
 
 if dca_dep.found()
