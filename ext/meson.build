@@ -51,7 +51,11 @@ subdir('smoothstreaming')
 #subdir('sndfile')
 #subdir('sndio')
 #subdir('soundtouch')
-subdir('spandsp')
+if cc.get_id() != 'msvc'
+  # libspandsp has a bunch of portability issues in the headers
+  # If someone really wants to use this, it shouldn't be hard to port
+  subdir('spandsp')
+endif
 #subdir('spc')
 subdir('srtp')
 #subdir('teletextdec')
