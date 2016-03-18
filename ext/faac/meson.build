@@ -1,4 +1,4 @@
-faac_dep = find_library('faac', required : false)
+faac_dep = cc.find_library('faac', required : false)
 
 if faac_dep.found() and cc.has_function('faacEncOpen', prefix : '#include <faac.h>')
   gstfaac = library('gstfaac',
