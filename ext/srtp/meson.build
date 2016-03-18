@@ -10,7 +10,6 @@ if not srtp_dep.found() and cc.has_function('srtp_init', prefix : '#include <srt
 endif
 
 if srtp_dep.found()
-
   mkenums = find_program('srtp_mkenum.py')
   gstsrtp_h = custom_target('gstsrtpenum_h',
     output : 'gstsrtp-enumtypes.h',
@@ -20,6 +19,7 @@ if srtp_dep.found()
   gstsrtp_c = custom_target('gstsrtpenum_c',
     output : 'gstsrtp-enumtypes.c',
     input : 'gstsrtp.h',
+    depends : [gstsrtp_h],
     command : [ mkenums, '@OUTPUT@', '@INPUT@' ])
 
   gstsrtp = library('gstsrtp',
