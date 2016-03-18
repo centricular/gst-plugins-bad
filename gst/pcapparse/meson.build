@@ -7,9 +7,8 @@ capp_sources = [
 gstpcapparse = library('gstpcapparse',
   capp_sources,
   c_args : gst_plugins_bad_args,
-  link_args : winsock2_link_args,
   include_directories : gst_plugins_bad_incs,
-  dependencies : [gstbase_dep],
+  dependencies : [gstbase_dep] + winsock2,
   install : true,
   install_dir : plugins_install_dir,
 )

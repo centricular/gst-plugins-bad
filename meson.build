@@ -267,7 +267,7 @@ gstcheck_dep = dependency('gstreamer-check-1.0', version : gst_req)
 gstcontroller_dep = dependency('gstreamer-controller-1.0', version : gst_req)
 
 orc_dep = dependency('orc-0.4', required : false)
-libm = find_library('m', required : false)
+libm = cc.find_library('m', required : false)
 glib_dep = dependency('glib-2.0', version : glib_req)
 gio_dep = dependency('gio-2.0', version : glib_req)
 gmodule_dep = dependency('gmodule-2.0', version : glib_req)
@@ -283,15 +283,10 @@ if x11_dep.found()
   cdata.set('HAVE_X11', 1)
 endif
 
-# FIXME: find_library doesn't work on Windows, so we add this manually
 if host_machine.system() == 'windows'
-  if cc.get_id() == 'msvc'
-    winsock2_link_args = ['ws2_32.lib']
-  else
-    winsock2_link_args = ['-lws2_32']
-  endif
+  winsock2 = [cc.find_library('ws2_32')]
 else
-  winsock2_link_args = []
+  winsock2 = []
 endif
 
 configure_file(input : 'config.h.meson',
