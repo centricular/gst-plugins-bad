@@ -9,7 +9,7 @@ if dca_dep.found()
     'gstdtsdec.c',
     c_args : gst_plugins_bad_args,
     include_directories : gst_plugins_bad_incs,
-    dependencies : [ gstaudio_dep, dca_dep ],
+    dependencies : [gstaudio_dep, orc_dep, dca_dep],
     install : true,
     install_dir : plugins_install_dir,
   )
