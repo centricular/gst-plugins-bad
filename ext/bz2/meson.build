@@ -4,7 +4,7 @@ bz2_sources = [
   'gstbz2enc.c',
 ]
 
-bz2_dep = find_library('bz2', required : false)
+bz2_dep = cc.find_library('bz2', required : false)
 
 if bz2_dep.found() and cc.has_function('BZ2_bzlibVersion', prefix : '#include <bzlib.h>')
   gstbz2 = library('gstbz2',

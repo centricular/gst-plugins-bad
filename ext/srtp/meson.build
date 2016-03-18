@@ -6,7 +6,7 @@ srtp_sources = [
 
 srtp_dep = dependency('libsrtp', required : false)
 if not srtp_dep.found() and cc.has_function('srtp_init', prefix : '#include <srtp/srtp.h>')
-  srtp_dep = find_library('srtp', required : false)
+  srtp_dep = cc.find_library('srtp', required : false)
 endif
 
 if srtp_dep.found()
