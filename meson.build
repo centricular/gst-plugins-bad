@@ -296,6 +296,8 @@ configure_file(input : 'config.h.meson',
 gst_plugins_bad_args = ['-DHAVE_CONFIG_H']
 gst_plugins_bad_incs = include_directories('.', 'gst-libs')
 
+vs_module_defs_dir = meson.source_root() + '/win32/common/'
+
 subdir('gst-libs')
 subdir('gst')
 subdir('sys')

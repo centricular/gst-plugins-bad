@@ -30,8 +30,7 @@ gstplayer = library('gstplayer-' + api_version,
   soversion : soversion,
   dependencies : [gst_dep, gstbase_dep, gstvideo_dep, gstaudio_dep,
                   gsttag_dep, gstpbutils_dep],
-  # Only used with MSVC
-  module_defs_file: meson.source_root() + '/win32/common/libgstplayer.def',
+  vs_module_defs: vs_module_defs_dir + 'libgstplayer.def',
 )
 # TODO: gir
 
