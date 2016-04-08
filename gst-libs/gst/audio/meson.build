@@ -11,6 +11,5 @@ gstbadaudio = library('gstbadaudio-' + api_version,
   version : libversion,
   soversion : soversion,
   dependencies : [gstaudio_dep, gst_dep],
-  # Only used with MSVC
-  module_defs_file: meson.source_root() + '/win32/common/libgstbadaudio.def',
+  vs_module_defs: vs_module_defs_dir + 'libgstbadaudio.def',
 )
