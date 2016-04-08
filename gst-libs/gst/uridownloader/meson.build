@@ -10,6 +10,5 @@ gsturidownloader = library('gsturidownloader-' + api_version,
   version : libversion,
   soversion : soversion,
   dependencies : [ gstbase_dep ],
-  # Only used with MSVC
-  module_defs_file: meson.source_root() + '/win32/common/libgsturidownloader.def',
+  vs_module_defs: vs_module_defs_dir + 'libgsturidownloader.def',
 )

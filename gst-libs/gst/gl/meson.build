@@ -45,8 +45,7 @@ gstgl = library('gstgl-' + api_version,
   version : libversion,
   soversion : soversion,
   dependencies : [gstbase_dep, gstvideo_dep],
-  # Only used with MSVC
   # FIXME: This symbol list is generated on Linux, so this is wrong for Windows
-  module_defs_file: meson.source_root() + '/win32/common/libgstgl.def',
+  vs_module_defs: vs_module_defs_dir + 'libgstgl.def',
 )
 # TODO: generate gir

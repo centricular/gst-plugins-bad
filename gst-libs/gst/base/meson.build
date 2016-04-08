@@ -9,8 +9,7 @@ gstbadbase = library('gstbadbase-' + api_version,
   version : libversion,
   soversion : soversion,
   dependencies : [gst_dep],
-  # Only used with MSVC
-  module_defs_file: meson.source_root() + '/win32/common/libgstbadbase.def',
+  vs_module_defs: vs_module_defs_dir + 'libgstbadbase.def',
 )
 
 gstbadbase_dep = declare_dependency(link_with : gstbadbase)

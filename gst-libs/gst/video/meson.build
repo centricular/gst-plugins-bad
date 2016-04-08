@@ -10,6 +10,5 @@ gstbadvideo = library('gstbadvideo-' + api_version,
   version : libversion,
   soversion : soversion,
   dependencies : [gst_dep, gstvideo_dep, gstbadbase_dep],
-  # Only used with MSVC
-  module_defs_file: meson.source_root() + '/win32/common/libgstbadvideo.def',
+  vs_module_defs: vs_module_defs_dir + 'libgstbadvideo.def',
 )
