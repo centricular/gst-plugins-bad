@@ -16,8 +16,8 @@ if curl_dep.found()
   gstcurl = library('gstcurl',
     curl_sources,
     c_args : gst_plugins_bad_args,
-    include_directories : gst_plugins_bad_incs,
-    dependencies : [ gstbase_dep, curl_dep ],
+    include_directories : [configinc],
+    dependencies : [gstbase_dep, curl_dep] + winsock2,
     install : true,
     install_dir : plugins_install_dir,
   )

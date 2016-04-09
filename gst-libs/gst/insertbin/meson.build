@@ -5,7 +5,7 @@ insert_sources = [
 gstinsertbin = library('gstinsertbin-' + api_version,
   insert_sources,
   c_args : gst_plugins_bad_args + [ '-DGST_USE_UNSTABLE_API' ],
-  include_directories : gst_plugins_bad_incs,
+  include_directories : [configinc, libsinc],
   version : libversion,
   soversion : soversion,
   dependencies : [gst_dep],
@@ -13,4 +13,5 @@ gstinsertbin = library('gstinsertbin-' + api_version,
 )
 # TODO: generate gir
 
-gstinsertbin_dep = declare_dependency(link_with : gstinsertbin)
+gstinsertbin_dep = declare_dependency(link_with : gstinsertbin,
+  include_directories : [libsinc])

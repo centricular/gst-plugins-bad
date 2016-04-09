@@ -17,7 +17,7 @@ if dvdnav_dep.found() and dvdread_dep.found()
   gstresindvd = library('gstresindvd',
     resindvd_sources,
     c_args : gst_plugins_bad_args,
-    include_directories : gst_plugins_bad_incs,
+    include_directories : [configinc, libsinc],
     dependencies : [gstvideo_dep, gstpbutils_dep, gsttag_dep,
                     dvdnav_dep, dvdread_dep, gmodule_dep],
     install : true,

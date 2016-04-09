@@ -6,10 +6,12 @@ badaudio_sources = [
 gstbadaudio = library('gstbadaudio-' + api_version,
   badaudio_sources,
   c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
-  include_directories : gst_plugins_bad_incs,
-  link_with : gstbadbase,
+  include_directories : [configinc, libsinc],
   version : libversion,
   soversion : soversion,
-  dependencies : [gstaudio_dep, gst_dep],
+  dependencies : [gstbadbase_dep, gstaudio_dep, gst_dep],
   vs_module_defs: vs_module_defs_dir + 'libgstbadaudio.def',
 )
+
+gstbadaudio_dep = declare_dependency(link_with : gstbadaudio,
+  include_directories : [libsinc])

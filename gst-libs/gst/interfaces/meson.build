@@ -21,7 +21,7 @@ photoenum_c = custom_target('photoenum_c',
 gstphotography = library('gstphotography-' + api_version,
   photography_sources, photoenum_h, photoenum_c,
   c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
-  include_directories : gst_plugins_bad_incs,
+  include_directories : [configinc, libsinc],
   version : libversion,
   soversion : soversion,
   dependencies : [gst_dep],
@@ -29,4 +29,5 @@ gstphotography = library('gstphotography-' + api_version,
 )
 
 gstphotography_dep = declare_dependency(link_with : gstphotography,
-  sources : [ photoenum_h ])
+  include_directories : [libsinc],
+  sources : [photoenum_h])

@@ -6,12 +6,12 @@ bz2_sources = [
 
 bz2_dep = cc.find_library('bz2', required : false)
 
-if bz2_dep.found() and cc.has_function('BZ2_bzlibVersion', prefix : '#include <bzlib.h>')
+if bz2_dep.found() and cc.has_header_symbol('bzlib.h', 'BZ2_bzlibVersion')
   gstbz2 = library('gstbz2',
     bz2_sources,
     c_args : gst_plugins_bad_args,
-    include_directories : gst_plugins_bad_incs,
-    dependencies : [ gstvideo_dep, bz2_dep ],
+    include_directories : [configinc],
+    dependencies : [gstvideo_dep, bz2_dep],
     install : true,
     install_dir : plugins_install_dir,
   )
