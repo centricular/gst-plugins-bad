@@ -3,6 +3,7 @@ subdir('adpcmdec')
 subdir('adpcmenc')
 subdir('aiff')
 subdir('asfmux')
+# not ported to 1.0
 #subdir('audiobuffer')
 subdir('audiofxbad')
 subdir('audiomixer')

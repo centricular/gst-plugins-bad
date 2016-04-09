@@ -18,8 +18,8 @@ if openssl_dep.found() and libcrypto_dep.found()
   gstdtls = library('gstdtls',
     dtls_sources,
     c_args : gst_plugins_bad_args,
-    include_directories : gst_plugins_bad_incs,
-    dependencies : [ gst_dep, libcrypto_dep, openssl_dep ],
+    include_directories : [configinc],
+    dependencies : [gst_dep, libcrypto_dep, openssl_dep],
     install : true,
     install_dir : plugins_install_dir,
   )

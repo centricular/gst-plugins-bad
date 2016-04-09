@@ -100,7 +100,7 @@ check_functions = [
 # check token HAVE_DAALA
 # check token HAVE_DASH
 # check token HAVE_DC1394
-  ['HAVE_DCGETTEXT', 'dcgettext', '#include<libintl.h>'],
+  ['HAVE_DCGETTEXT', 'dcgettext'],
 # check token HAVE_DECKLINK
 # check token HAVE_DIRECT3D
 # check token HAVE_DIRECTDRAW
@@ -118,7 +118,7 @@ check_functions = [
 # check token HAVE_FIONREAD_IN_SYS_IOCTL
 # check token HAVE_FLITE
 # check token HAVE_FLUIDSYNTH
-  ['HAVE_GETPAGESIZE', 'getpagesize', '#include<unistd.h>'],
+  ['HAVE_GETPAGESIZE', 'getpagesize'],
 # check token HAVE_GETTEXT
 # check token HAVE_GL
 # check token HAVE_GLCHAR
@@ -126,7 +126,7 @@ check_functions = [
 # check token HAVE_GLINTPTR
 # check token HAVE_GLSIZEIPTR
 # check token HAVE_GME
-  ['HAVE_GMTIME_R', 'gmtime_r', '#include<time.h>'],
+  ['HAVE_GMTIME_R', 'gmtime_r'],
 # check token HAVE_GRAPHENE
 # check token HAVE_GSETTINGS
 # check token HAVE_GSM
@@ -148,7 +148,7 @@ check_functions = [
 # check token HAVE_LRDF
 # check token HAVE_LV2
 # check token HAVE_MIMIC
-  ['HAVE_MMAP', 'mmap', '#include<sys/mman.h>'],
+  ['HAVE_MMAP', 'mmap'],
 # check token HAVE_MODPLUG
 # check token HAVE_MPEG2ENC
 # check token HAVE_MPG123
@@ -216,7 +216,7 @@ check_functions = [
 ]
 
 foreach f : check_functions
-  if cc.has_function(f.get(1), prefix : f.get(2))
+  if cc.has_function(f.get(1))
     cdata.set(f.get(0), 1)
   endif
 endforeach
@@ -294,7 +294,8 @@ configure_file(input : 'config.h.meson',
   configuration : cdata)
 
 gst_plugins_bad_args = ['-DHAVE_CONFIG_H']
-gst_plugins_bad_incs = include_directories('.', 'gst-libs')
+configinc = include_directories('.')
+libsinc = include_directories('gst-libs')
 
 vs_module_defs_dir = meson.source_root() + '/win32/common/'
 

@@ -10,8 +10,8 @@ if sbc_dep.found()
   gstsbc = library('gstsbc',
     sbc_sources,
     c_args : gst_plugins_bad_args,
-    include_directories : gst_plugins_bad_incs,
-    dependencies : [ gstaudio_dep, sbc_dep ],
+    include_directories : [configinc],
+    dependencies : [gstaudio_dep, sbc_dep],
     install : true,
     install_dir : plugins_install_dir,
   )

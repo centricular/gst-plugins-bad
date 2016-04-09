@@ -41,7 +41,7 @@ configure_file(input : 'gstglconfig.h.meson',
 gstgl = library('gstgl-' + api_version,
   gl_sources,
   c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
-  include_directories : gst_plugins_bad_incs,
+  include_directories : [configinc, libsinc],
   version : libversion,
   soversion : soversion,
   dependencies : [gstbase_dep, gstvideo_dep],
@@ -49,3 +49,6 @@ gstgl = library('gstgl-' + api_version,
   vs_module_defs: vs_module_defs_dir + 'libgstgl.def',
 )
 # TODO: generate gir
+
+gstgl_dep = declare_dependency(link_with : gstgl,
+  include_directories : [libsinc])
