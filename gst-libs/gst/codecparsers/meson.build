@@ -26,9 +26,12 @@ cp_args = [
 gstcodecparsers = library('gstcodecparsers-' + api_version,
   codecparser_sources,
   c_args : gst_plugins_bad_args + cp_args,
-  include_directories : gst_plugins_bad_incs,
+  include_directories : [configinc, libsinc],
   version : libversion,
   soversion : soversion,
   dependencies : [gst_dep, gstbase_dep, libm],
   vs_module_defs: vs_module_defs_dir + 'libgstcodecparsers.def',
 )
+
+gstcodecparsers_dep = declare_dependency(link_with : gstcodecparsers,
+  include_directories : [libsinc])

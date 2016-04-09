@@ -8,8 +8,8 @@ if mpg123_dep.found()
   gstmpg123 = library('gstmpg123',
     mpg123_sources,
     c_args : gst_plugins_bad_args,
-    include_directories : gst_plugins_bad_incs,
-    dependencies : [ gstaudio_dep, mpg123_dep ],
+    include_directories : [configinc],
+    dependencies : [gstaudio_dep, mpg123_dep],
     install : true,
     install_dir : plugins_install_dir,
   )

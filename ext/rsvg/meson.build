@@ -9,8 +9,8 @@ if rsvg_dep.found()
   gstrsvg = library('gstrsvg',
     rsvg_sources,
     c_args : gst_plugins_bad_args,
-    include_directories : gst_plugins_bad_incs,
-    dependencies : [ gstvideo_dep, rsvg_dep ],
+    include_directories : [configinc],
+    dependencies : [gstvideo_dep, rsvg_dep],
     install : true,
     install_dir : plugins_install_dir,
   )

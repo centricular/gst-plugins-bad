@@ -9,8 +9,8 @@ if de265_dep.found()
   gstde265 = library('gstde265',
     de265_sources,
     c_args : gst_plugins_bad_args,
-    include_directories : gst_plugins_bad_incs,
-    dependencies : [ gstvideo_dep, de265_dep ],
+    include_directories : [configinc],
+    dependencies : [gstvideo_dep, de265_dep],
     install : true,
     install_dir : plugins_install_dir,
   )

@@ -30,7 +30,7 @@ mpegts_c = custom_target('mpegtsenum_c',
 gstmpegts = library('gstmpegts-' + api_version,
   mpegts_sources, mpegts_h, mpegts_c,
   c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
-  include_directories : gst_plugins_bad_incs,
+  include_directories : [configinc, libsinc],
   version : libversion,
   soversion : soversion,
   dependencies : [gst_dep],
@@ -39,4 +39,5 @@ gstmpegts = library('gstmpegts-' + api_version,
 # TODO: generate gir
 
 gstmpegts_dep = declare_dependency(link_with : gstmpegts,
+  include_directories : [libsinc],
   sources : [mpegts_h])

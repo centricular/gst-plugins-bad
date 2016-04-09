@@ -12,8 +12,8 @@ inter_sources = [
 gstinter = library('gstinter',
   inter_sources,
   c_args : gst_plugins_bad_args,
-  include_directories : gst_plugins_bad_incs,
-  dependencies : [ gstaudio_dep, gstvideo_dep, gstbase_dep ],
+  include_directories : [configinc],
+  dependencies : [gstaudio_dep, gstvideo_dep, gstbase_dep],
   install : true,
   install_dir : plugins_install_dir,
 )
