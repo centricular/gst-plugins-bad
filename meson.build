@@ -272,6 +272,8 @@ glib_dep = dependency('glib-2.0', version : glib_req)
 gio_dep = dependency('gio-2.0', version : glib_req)
 gmodule_dep = dependency('gmodule-2.0', version : glib_req)
 x11_dep = dependency('x11', required : false)
+# Used by dtls and hls
+openssl_dep = dependency('openssl', version : '>= 1.0.1', required : false)
 
 if orc_dep.found()
   cdata.set('HAVE_ORC', 1)
