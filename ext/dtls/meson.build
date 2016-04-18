@@ -11,7 +11,6 @@ dtls_sources = [
   'plugin.c',
 ]
 
-openssl_dep = dependency('openssl', version : '>= 1.0.1', required : false)
 libcrypto_dep = dependency('libcrypto', required : false)
 
 if openssl_dep.found() and libcrypto_dep.found()
