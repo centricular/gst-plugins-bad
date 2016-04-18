@@ -9,6 +9,7 @@ gstbadaudio = library('gstbadaudio-' + api_version,
   include_directories : [configinc, libsinc],
   version : libversion,
   soversion : soversion,
+  install : true,
   dependencies : [gstbadbase_dep, gstaudio_dep, gst_dep],
   vs_module_defs: vs_module_defs_dir + 'libgstbadaudio.def',
 )

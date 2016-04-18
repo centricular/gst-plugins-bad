@@ -44,6 +44,7 @@ gstgl = library('gstgl-' + api_version,
   include_directories : [configinc, libsinc],
   version : libversion,
   soversion : soversion,
+  install : true,
   dependencies : [gstbase_dep, gstvideo_dep],
   # FIXME: This symbol list is generated on Linux, so this is wrong for Windows
   vs_module_defs: vs_module_defs_dir + 'libgstgl.def',
