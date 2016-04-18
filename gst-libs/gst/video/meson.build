@@ -9,6 +9,7 @@ gstbadvideo = library('gstbadvideo-' + api_version,
   include_directories : [configinc, libsinc],
   version : libversion,
   soversion : soversion,
+  install : true,
   dependencies : [gst_dep, gstvideo_dep, gstbadbase_dep],
   vs_module_defs: vs_module_defs_dir + 'libgstbadvideo.def',
 )
