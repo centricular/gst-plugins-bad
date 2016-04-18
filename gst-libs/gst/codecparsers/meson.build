@@ -29,6 +29,7 @@ gstcodecparsers = library('gstcodecparsers-' + api_version,
   include_directories : [configinc, libsinc],
   version : libversion,
   soversion : soversion,
+  install : true,
   dependencies : [gst_dep, gstbase_dep, libm],
   vs_module_defs: vs_module_defs_dir + 'libgstcodecparsers.def',
 )

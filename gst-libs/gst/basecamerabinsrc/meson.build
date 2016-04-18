@@ -10,6 +10,7 @@ gstbasecamerabin = library('gstbasecamerabinsrc-' + api_version,
   include_directories : [configinc, libsinc],
   version : libversion,
   soversion : soversion,
+  install : true,
   dependencies : [gstbase_dep, gstapp_dep],
   vs_module_defs: vs_module_defs_dir + 'libgstbasecamerabinsrc.def',
 )
