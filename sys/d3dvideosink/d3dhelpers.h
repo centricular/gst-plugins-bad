@@ -44,7 +44,11 @@
 #endif
 
 #include <d3d9.h>
-#include <d3dx9tex.h>
+
+/* Deprecated and unneeded on native Windows */
+#if defined(__MINGW32__)
+# include <d3dx9tex.h>
+#endif
 
 typedef struct _GstD3DVideoSink GstD3DVideoSink;
 typedef struct _GstD3DVideoSinkClass GstD3DVideoSinkClass;
