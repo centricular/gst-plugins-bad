@@ -7,7 +7,7 @@ camerabin2_sources = [
   'gstplugin.c',
 ]
 
-gstcamerabin2 = library('gstcamerabin',
+gstcamerabin2 = library('gstcamerabin2',
   camerabin2_sources,
   c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
   include_directories : [configinc, libsinc],

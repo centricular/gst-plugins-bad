@@ -4,7 +4,7 @@ sdp_sources = [
   'gstsdpdemux.c'
 ]
 
-gstsdpelem = library('gstspdelem',
+gstsdpelem = library('gstsdpelem',
   sdp_sources,
   c_args : gst_plugins_bad_args,
   include_directories : [configinc],
