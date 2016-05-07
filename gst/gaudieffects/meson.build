@@ -20,7 +20,7 @@ gaudio_h = configure_file(input : 'gstgaudieffectsorc-dist.h',
 )
 
 
-gstgaudioeffects = library('gstgaudioeffects',
+gstgaudioeffects = library('gstgaudieffects',
   gaudio_sources, gaudio_c,
   c_args : gst_plugins_bad_args,
   include_directories : [configinc],
