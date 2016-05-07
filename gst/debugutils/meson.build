@@ -1,4 +1,4 @@
-debugutils_sources = [
+debugutilsbad_sources = [
   'gstdebugspy.c',
   'gsterrorignore.c',
   'debugutilsbad.c',
@@ -9,7 +9,7 @@ debugutils_sources = [
   'gstwatchdog.c',
 ]
 
-debugutils_headers = [
+debugutilsbad_headers = [
   'gstchecksumsink.h',
   'gstchopmydata.h',
   'gstcompare.h',
@@ -17,8 +17,8 @@ debugutils_headers = [
   'gstwatchdog.h',
 ]
 
-gstdebugutils = library('gstdebugutils',
-  debugutils_sources,
+gstdebugutilsbad = library('gstdebugutilsbad',
+  debugutilsbad_sources,
   c_args : gst_plugins_bad_args,
   include_directories : [configinc],
   dependencies : [gstbase_dep, gstvideo_dep],
