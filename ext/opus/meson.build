@@ -7,7 +7,7 @@ opus_sources = [
 opus_dep = dependency('opus', version : '>= 0.9.4', required : false)
 
 if opus_dep.found()
-  gstopus = library('gstopus',
+  gstopus = library('gstopusparse',
     opus_sources,
     c_args : gst_plugins_bad_args,
     include_directories : [configinc],

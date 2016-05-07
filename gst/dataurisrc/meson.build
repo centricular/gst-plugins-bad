@@ -1,9 +1,9 @@
-datauri_sources = [
+dataurisrc_sources = [
   'gstdataurisrc.c',
 ]
 
-gstdatauri = library('gstdatauri',
-  datauri_sources,
+gstdatauri = library('gstdataurisrc',
+  dataurisrc_sources,
   c_args : gst_plugins_bad_args,
   include_directories : [configinc],
   dependencies : [gstbase_dep],
