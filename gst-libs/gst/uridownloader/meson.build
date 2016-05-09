@@ -2,6 +2,12 @@ urid_sources = [
   'gstfragment.c',
   'gsturidownloader.c',
 ]
+urid_headers = [
+  'gstfragment.h',
+  'gsturidownloader.h',
+  'gsturidownloader_debug.h',
+]
+install_headers(urid_headers, subdir : 'gstreamer-1.0/gst/uridownloader')
 
 gsturidownloader = library('gsturidownloader-' + api_version,
   urid_sources,

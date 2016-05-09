@@ -14,15 +14,13 @@ pkg_libs = [
   'bad-base',
   'bad-video',
   'codecparsers',
+  # Broken and not built currently
+  #'gl',
   'insertbin',
   'mpegts',
   'player',
   'plugins-bad',
 ]
-
-if host_system != 'windows'
-  pkg_libs += ['gl']
-endif
 
 # FIXME: -uninstalled.pc files (if still needed?)
 foreach p : pkg_libs

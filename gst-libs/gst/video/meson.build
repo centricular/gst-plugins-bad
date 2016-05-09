@@ -1,6 +1,11 @@
 badvideo_sources = [
   'gstvideoaggregator.c',
 ]
+badvideo_headers = [
+  'gstvideoaggregatorpad.h',
+  'gstvideoaggregator.h'
+]
+install_headers(badvideo_headers, subdir : 'gstreamer-1.0/gst/video')
 
 
 gstbadvideo = library('gstbadvideo-' + api_version,
