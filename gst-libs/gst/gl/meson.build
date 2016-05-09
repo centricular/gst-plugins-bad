@@ -17,6 +17,41 @@ gl_sources = [
   'gstglframebuffer.c',
 ]
 
+gl_headers = [
+  'gl.h',
+  'gstgl_enums.h',
+  'gstgl_fwd.h',
+  'gstglapi.h',
+  'gstglbasefilter.h',
+  'gstglbasememory.h',
+  'gstglbuffer.h',
+  'gstglbufferpool.h',
+  'gstglcolorconvert.h',
+  'gstglcontext.h',
+  'gstglcontrolbindingproxy.h',
+  'gstgldebug.h',
+  'gstgldisplay.h',
+  'gstglfeature.h',
+  'gstglfilter.h',
+  'gstglformat.h',
+  'gstglframebuffer.h',
+  'gstglmemory.h',
+  'gstglmemorypbo.h',
+  'gstgloverlaycompositor.h',
+  'gstglquery.h',
+  'gstglshader.h',
+  'gstglshaderstrings.h',
+  'gstglsl.h',
+  'gstglslstage.h',
+  'gstglsyncmeta.h',
+  'gstglupload.h',
+  'gstglutils.h',
+  'gstglviewconvert.h',
+  'gstglwindow.h',
+]
+# FIXME: Install glprototypes
+install_headers(gl_headers, subdir : 'gstreamer-1.0/gst/gl')
+
 glconf = configuration_data()
 
 glconf.set10('GST_GL_HAVE_OPENGL', gl_dep.found())
@@ -36,6 +71,7 @@ endif
 
 configure_file(input : 'gstglconfig.h.meson',
   output : 'gstglconfig.h',
+  install_dir : get_option('libdir') + '/gstreamer-1.0/include/gst/gl',
   configuration : glconf)
 
 gstgl = library('gstgl-' + api_version,

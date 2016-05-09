@@ -3,6 +3,12 @@ camerabin_sources = [
   'gstcamerabinpreview.c',
   'gstbasecamerasrc.c',
 ]
+camerabin_headers = [
+  'gstcamerabin-enum.h',
+  'gstcamerabinpreview.h',
+  'gstbasecamerasrc.h',
+]
+install_headers(camerabin_headers, subdir : 'gstreamer-1.0/gst/basecamerabinsrc')
 
 gstbasecamerabin = library('gstbasecamerabinsrc-' + api_version,
   camerabin_sources,
