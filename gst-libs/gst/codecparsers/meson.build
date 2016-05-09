@@ -15,6 +15,19 @@ codecparser_sources = [
   'vp8utils.c',
   'gstmpegvideometa.c',
 ]
+codecparser_headers = [
+  'gstmpegvideoparser.h',
+  'gsth264parser.h',
+  'gstvc1parser.h',
+  'gstmpeg4parser.h',
+  'gsth265parser.h',
+  'gstvp8parser.h',
+  'gstvp8rangedecoder.h',
+  'gstjpegparser.h',
+  'gstmpegvideometa.h',
+  'gstvp9parser.h',
+]
+install_headers(codecparser_headers, subdir : 'gstreamer-1.0/gst/codecparsers')
 
 cp_args = [
   '-DGST_USE_UNSTABLE_API',

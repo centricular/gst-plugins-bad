@@ -1,6 +1,6 @@
-insert_sources = [
-  'gstinsertbin.c'
-]
+insert_sources = ['gstinsertbin.c']
+insert_headers = ['gstinsertbin.h']
+install_headers(insert_headers, subdir : 'gstreamer-1.0/gst/insertbin')
 
 gstinsertbin = library('gstinsertbin-' + api_version,
   insert_sources,

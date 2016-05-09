@@ -13,7 +13,9 @@ mpegts_headers = [
   'gst-scte-section.h',
   'gstmpegtsdescriptor.h',
   'gst-dvb-descriptor.h',
+  'mpegts.h',
 ]
+install_headers(mpegts_headers, subdir : 'gstreamer-1.0/gst/mpegts')
 
 mkenums = find_program('mpegts_enum.py')
 

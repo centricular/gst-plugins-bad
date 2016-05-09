@@ -1,6 +1,6 @@
-badaudio_sources = [
-  'gstaudioaggregator.c',
-]
+badaudio_sources = ['gstaudioaggregator.c']
+badaudio_headers = ['gstaudioaggregator.h']
+install_headers(badaudio_headers, subdir : 'gstreamer-1.0/gst/audio')
 
 
 gstbadaudio = library('gstbadaudio-' + api_version,

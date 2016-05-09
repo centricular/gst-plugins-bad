@@ -1,6 +1,6 @@
-badbase_sources = [
-  'gstaggregator.c'
-]
+badbase_sources = ['gstaggregator.c']
+badbase_headers = ['gstaggregator.h']
+install_headers(badbase_headers, subdir : 'gstreamer-1.0/gst/base')
 
 gstbadbase = library('gstbadbase-' + api_version,
   badbase_sources,

@@ -1,16 +1,14 @@
-photography_sources = [
-  'photography.c',
-]
-
-photo_headers = [
-  'photography.h',
-]
+photography_sources = ['photography.c']
+photo_headers = ['photography.h']
+install_headers(photo_headers, subdir : 'gstreamer-1.0/gst/interfaces')
 
 mkenums = find_program('build_mkenum.py')
 
 photoenum_h = custom_target('photoenum_h',
   output : 'photography-enumtypes.h',
   input : photo_headers,
+  install : true,
+  install_dir : 'include/gstreamer-1.0/gst/interfaces',
   command : [mkenums, '@OUTPUT@', '@INPUT@'])
 
 photoenum_c = custom_target('photoenum_c',
