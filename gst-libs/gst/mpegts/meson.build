@@ -22,6 +22,8 @@ mkenums = find_program('mpegts_enum.py')
 mpegts_h = custom_target('mpegtsenum_h',
   output : 'gstmpegts-enumtypes.h',
   input : mpegts_headers,
+  install : true,
+  install_dir : 'include/gstreamer-1.0/gst/mpegts',
   command : [mkenums, '@OUTPUT@', '@INPUT@'])
 
 mpegts_c = custom_target('mpegtsenum_c',
