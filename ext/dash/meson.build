@@ -11,7 +11,8 @@ if xml2_dep.found()
     dash_sources,
     c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
     include_directories : [configinc, libsinc],
-    dependencies : [gstadaptivedemux_dep, gsttag_dep, gstnet_dep, gstbase_dep, gio_dep, xml2_dep],
+    dependencies : [gstadaptivedemux_dep, gsturidownloader_dep, gsttag_dep,
+                    gstnet_dep, gstbase_dep, gio_dep, xml2_dep],
     install : true,
     install_dir : plugins_install_dir,
   )
