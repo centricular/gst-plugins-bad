@@ -16,6 +16,7 @@ if kate_dep.found()
   gstkate = library('gstkate',
     kate_sources,
     c_args : gst_plugins_bad_args,
+    link_args : noseh_link_args,
     include_directories : [configinc],
     dependencies : [gstbase_dep, gstvideo_dep, gsttag_dep, kate_dep],
     install : true,

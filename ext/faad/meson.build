@@ -12,6 +12,7 @@ if faad_dep.found() and have_faad_2_7
   gstfaad = library('gstfaad',
     'gstfaad.c',
     c_args : gst_plugins_bad_args + [ '-DFAAD2_MINOR_VERSION=7', '-DFAAD_IS_NEAAC' ],
+    link_args : noseh_link_args,
     include_directories : [configinc],
     dependencies : [gstaudio_dep, gstpbutils_dep, gsttag_dep, faad_dep],
     install : true,

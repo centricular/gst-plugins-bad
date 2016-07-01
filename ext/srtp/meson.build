@@ -25,6 +25,7 @@ if srtp_dep.found()
   gstsrtp = library('gstsrtp',
     srtp_sources, gstsrtp_c, gstsrtp_h,
     c_args : gst_plugins_bad_args,
+    link_args : noseh_link_args,
     include_directories : [configinc],
     dependencies : [gstrtp_dep, gstvideo_dep, srtp_dep],
     install : true,

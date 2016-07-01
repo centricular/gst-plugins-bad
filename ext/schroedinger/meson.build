@@ -11,6 +11,7 @@ if schro_dep.found()
   gstschro = library('gstschro',
     schro_sources,
     c_args : gst_plugins_bad_args,
+    link_args : noseh_link_args,
     include_directories : [configinc],
     dependencies : [gstvideo_dep, schro_dep],
     install : true,

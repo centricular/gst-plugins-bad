@@ -16,6 +16,7 @@ if openjpeg_dep.found()
   gstopenjpeg = library('gstopenjpeg',
     openjpeg_sources,
     c_args : gst_plugins_bad_args + openjpeg_cargs,
+    link_args : noseh_link_args,
     include_directories : [configinc],
     dependencies : [gst_dep, gstvideo_dep, openjpeg_dep],
     install : true,
