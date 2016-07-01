@@ -14,13 +14,13 @@ if srtp_dep.found()
   gstsrtp_h = custom_target('gstsrtpenum_h',
     output : 'gstsrtp-enumtypes.h',
     input : 'gstsrtp.h',
-    command : [ mkenums, '@OUTPUT@', '@INPUT@' ])
+    command : [mkenums, perl, glib_mkenums, '@OUTPUT@', '@INPUT@'])
 
   gstsrtp_c = custom_target('gstsrtpenum_c',
     output : 'gstsrtp-enumtypes.c',
     input : 'gstsrtp.h',
     depends : [gstsrtp_h],
-    command : [ mkenums, '@OUTPUT@', '@INPUT@' ])
+    command : [mkenums, perl, glib_mkenums, '@OUTPUT@', '@INPUT@'])
 
   gstsrtp = library('gstsrtp',
     srtp_sources, gstsrtp_c, gstsrtp_h,
