@@ -10,6 +10,7 @@ if xml2_dep.found()
   gstsouphttpsrc = library('gstdashdemux',
     dash_sources,
     c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
+    link_args : noseh_link_args,
     include_directories : [configinc, libsinc],
     dependencies : [gstadaptivedemux_dep, gsturidownloader_dep, gsttag_dep,
                     gstnet_dep, gstbase_dep, gio_dep, xml2_dep],

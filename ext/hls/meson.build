@@ -27,6 +27,7 @@ endif
 gsthls = library('gsthls',
   hls_sources,
   c_args : gst_plugins_bad_args + hls_cargs,
+  link_args : noseh_link_args,
   include_directories : [configinc],
   dependencies : [gstpbutils_dep, gstvideo_dep, gstadaptivedemux_dep,
                   gsturidownloader_dep, hls_crypto_dep],

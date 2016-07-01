@@ -6,6 +6,7 @@ if voaac_dep.found()
   gstbz2 = library('gstvoaacenc',
     voaac_sources,
     c_args : gst_plugins_bad_args,
+    link_args : noseh_link_args,
     include_directories : [configinc],
     dependencies : [gstbase_dep, gstpbutils_dep, gstaudio_dep, voaac_dep],
     install : true,
