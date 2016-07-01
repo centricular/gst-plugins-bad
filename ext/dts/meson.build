@@ -8,6 +8,7 @@ if dca_dep.found()
   gstdtsdec = library('gstdtsdec',
     'gstdtsdec.c',
     c_args : gst_plugins_bad_args,
+    link_args : noseh_link_args,
     include_directories : [configinc, libsinc],
     dependencies : [gstaudio_dep, orc_dep, dca_dep],
     install : true,

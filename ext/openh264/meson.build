@@ -11,6 +11,7 @@ if openh264_dep.found()
   gstopenh264 = library('gstopenh264',
     openh264_sources,
     c_args : gst_plugins_bad_args,
+    link_args : noseh_link_args,
     include_directories : [configinc],
     dependencies : [gstvideo_dep, openh264_dep],
     install : true,

@@ -10,6 +10,7 @@ if opus_dep.found()
   gstopus = library('gstopusparse',
     opus_sources,
     c_args : gst_plugins_bad_args,
+    link_args : noseh_link_args,
     include_directories : [configinc],
     dependencies : [gstrtp_dep, gstpbutils_dep, gstaudio_dep,
                     gsttag_dep, opus_dep, libm],

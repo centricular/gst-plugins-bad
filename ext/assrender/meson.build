@@ -4,6 +4,7 @@ if ass_dep.found()
   gstassrender = library('gstassrender',
     'gstassrender.c',
     c_args : gst_plugins_bad_args,
+    link_args : noseh_link_args,
     include_directories : [configinc],
     dependencies : [gstvideo_dep, ass_dep],
     install : true,
