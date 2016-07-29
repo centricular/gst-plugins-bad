@@ -10,6 +10,7 @@ vparse_sources = [
   'gstpngparse.c',
   'gstvc1parse.c',
   'gsth265parse.c',
+  'gstjpeg2000parse.c',
 ]
 
 gstvideoparsersbad = library('gstvideoparsersbad',

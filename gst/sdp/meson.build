@@ -1,7 +1,8 @@
 sdp_sources = [
   'gstsdpelem.c',
   'gstsdpdemux.h',
-  'gstsdpdemux.c'
+  'gstsdpdemux.c',
+  'gstsdpsrc.c'
 ]
 
 gstsdpelem = library('gstsdpelem',

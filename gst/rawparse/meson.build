@@ -1,7 +1,11 @@
 raw_sources = [
-  'gstrawparse.c',
+  'gstunalignedaudioparse.c',
+  'gstunalignedvideoparse.c',
   'gstaudioparse.c',
   'gstvideoparse.c',
+  'gstrawbaseparse.c',
+  'gstrawaudioparse.c',
+  'gstrawvideoparse.c',
   'plugin.c',
 ]
 

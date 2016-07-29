@@ -24,7 +24,8 @@ if openjpeg_dep.found()
     openjpeg_sources,
     c_args : gst_plugins_bad_args + openjpeg_cargs,
     include_directories : [configinc],
-    dependencies : [gst_dep, gstvideo_dep, openjpeg_dep],
+    dependencies : [gst_dep, gstvideo_dep, openjpeg_dep,
+		    gstcodecparsers_dep],
     install : true,
     install_dir : plugins_install_dir,
   )
