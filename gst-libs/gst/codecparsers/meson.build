@@ -1,4 +1,5 @@
 codecparser_sources = [
+  'gstjpeg2000sampling.c',
   'gstjpegparser.c',
   'gstmpegvideoparser.c',
   'gsth264parser.c',
@@ -23,6 +24,7 @@ codecparser_headers = [
   'gsth265parser.h',
   'gstvp8parser.h',
   'gstvp8rangedecoder.h',
+  'gstjpeg2000sampling.h',
   'gstjpegparser.h',
   'gstmpegvideometa.h',
   'gstvp9parser.h',
