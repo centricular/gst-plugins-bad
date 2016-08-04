@@ -1,5 +1,6 @@
 hls_sources = [
   'gsthlsdemux.c',
+  'gsthlsdemux-util.c',
   'gsthlsplugin.c',
   'gsthlssink.c',
   'gstm3u8playlist.c',
@@ -29,8 +30,9 @@ gsthls = library('gsthls',
   c_args : gst_plugins_bad_args + hls_cargs,
   link_args : noseh_link_args,
   include_directories : [configinc],
-  dependencies : [gstpbutils_dep, gstvideo_dep, gstadaptivedemux_dep,
-                  gsturidownloader_dep, hls_crypto_dep],
+  dependencies : [gstpbutils_dep, gsttag_dep, gstvideo_dep,
+		  gstadaptivedemux_dep, gsturidownloader_dep,
+		  hls_crypto_dep],
   install : true,
   install_dir : plugins_install_dir,
 )
