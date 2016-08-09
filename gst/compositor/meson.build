@@ -3,19 +3,28 @@ compositor_sources = [
   'compositor.c',
 ]
 
-compo_c = configure_file(input : 'compositororc-dist.c',
-  output : 'compositororc.c',
-  configuration : configuration_data()
-)
-
-compo_h = configure_file(input : 'compositororc-dist.h',
-  output : 'compositororc.h',
-  configuration : configuration_data()
-)
+orcsrc = 'compositororc'
+if have_orcc
+  orc_h = custom_target(orcsrc + '.h',
+    input : orcsrc + '.orc',
+    output : orcsrc + '.h',
+    command : orcc_args + ['--header', '-o', '@OUTPUT@', '@INPUT@'])
+  orc_c = custom_target(orcsrc + '.c',
+    input : orcsrc + '.orc',
+    output : orcsrc + '.c',
+    command : orcc_args + ['--implementation', '-o', '@OUTPUT@', '@INPUT@'])
+else
+  orc_h = configure_file(input : orcsrc + '-dist.h',
+    output : orcsrc + '.h',
+    configuration : configuration_data())
+  orc_c = configure_file(input : orcsrc + '-dist.c',
+    output : orcsrc + '.c',
+    configuration : configuration_data())
+endif
 
 gstcompositor = library('gstcompositor',
-  compositor_sources, compo_c,
-  c_args : gst_plugins_bad_args + [ '-DGST_USE_UNSTABLE_API' ],
+  compositor_sources, orc_c, orc_h,
+  c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
   include_directories : [configinc],
   dependencies : [gstbadvideo_dep, gstbadbase_dep, gstvideo_dep, gstbase_dep,
 		  orc_dep, libm],

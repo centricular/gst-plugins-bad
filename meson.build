@@ -275,7 +275,6 @@ gstrtsp_dep = dependency('gstreamer-rtsp-1.0', version : gst_req)
 gstcheck_dep = dependency('gstreamer-check-1.0', version : gst_req)
 gstcontroller_dep = dependency('gstreamer-controller-1.0', version : gst_req)
 
-orc_dep = dependency('orc-0.4', required : false)
 libm = cc.find_library('m', required : false)
 glib_dep = dependency('glib-2.0', version : glib_req)
 gio_dep = dependency('gio-2.0', version : glib_req)
@@ -283,12 +282,6 @@ gmodule_dep = dependency('gmodule-2.0', version : glib_req)
 x11_dep = dependency('x11', required : false)
 # Used by dtls and hls
 openssl_dep = dependency('openssl', version : '>= 1.0.1', required : false)
-
-if orc_dep.found()
-  cdata.set('HAVE_ORC', 1)
-else
-  cdata.set('DISABLE_ORC', 1)
-endif
 
 if x11_dep.found()
   cdata.set('HAVE_X11', 1)
@@ -298,6 +291,25 @@ if host_machine.system() == 'windows'
   winsock2 = [cc.find_library('ws2_32')]
 else
   winsock2 = []
+endif
+
+have_orcc = false
+orcc_args = []
+if get_option('use_orc') != 'no'
+  need_orc = get_option('use_orc') == 'yes'
+  # Used by various libraries/elements that use Orc code
+  orc_dep = dependency('orc-0.4', required : need_orc)
+  orcc = find_program('orcc', required : need_orc)
+  if orc_dep.found() and orcc.found()
+    have_orcc = true
+    orcc_args = [orcc, '--include', 'glib.h']
+    cdata.set('HAVE_ORC', 1)
+  else
+    message('Orc Compiler not found, will use backup C code')
+    cdata.set('DISABLE_ORC', 1)
+  endif
+else
+  cdata.set('DISABLE_ORC', 1)
 endif
 
 configure_file(input : 'config.h.meson',
