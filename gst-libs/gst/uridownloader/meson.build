@@ -21,4 +21,5 @@ gsturidownloader = library('gsturidownloader-' + api_version,
 )
 
 gsturidownloader_dep = declare_dependency(link_with : gsturidownloader,
-  include_directories : [libsinc])
+  include_directories : [libsinc],
+  dependencies : [gstbase_dep])

@@ -5,9 +5,10 @@ gstadaptivedemux = library('gstadaptivedemux-' + api_version,
   version : libversion,
   soversion : soversion,
   install : true,
-  dependencies : [gst_dep, gstbase_dep, gsturidownloader_dep],
+  dependencies : [gstbase_dep, gsturidownloader_dep],
   vs_module_defs: vs_module_defs_dir + 'libgstadaptivedemux.def',
 )
 
 gstadaptivedemux_dep = declare_dependency(link_with : gstadaptivedemux,
-  include_directories : [libsinc])
+  include_directories : [libsinc],
+  dependencies : [gstbase_dep, gsturidownloader_dep])

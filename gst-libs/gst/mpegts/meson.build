@@ -45,4 +45,5 @@ gstmpegts = library('gstmpegts-' + api_version,
 
 gstmpegts_dep = declare_dependency(link_with : gstmpegts,
   include_directories : [libsinc],
+  dependencies : [gst_dep],
   sources : [mpegts_h])

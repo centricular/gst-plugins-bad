@@ -15,4 +15,5 @@ gstinsertbin = library('gstinsertbin-' + api_version,
 # TODO: generate gir
 
 gstinsertbin_dep = declare_dependency(link_with : gstinsertbin,
-  include_directories : [libsinc])
+  include_directories : [libsinc],
+  dependencies : [gst_dep])

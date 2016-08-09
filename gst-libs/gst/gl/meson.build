@@ -88,4 +88,5 @@ gstgl = library('gstgl-' + api_version,
 # TODO: generate gir
 
 gstgl_dep = declare_dependency(link_with : gstgl,
-  include_directories : [libsinc])
+  include_directories : [libsinc],
+  dependencies : [gstbase_dep, gstvideo_dep])

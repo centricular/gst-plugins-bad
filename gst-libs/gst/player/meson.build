@@ -29,10 +29,13 @@ gstplayer = library('gstplayer-' + api_version,
   version : libversion,
   soversion : soversion,
   install : true,
-  dependencies : [gst_dep, gstbase_dep, gstvideo_dep, gstaudio_dep,
+  dependencies : [gstbase_dep, gstvideo_dep, gstaudio_dep,
                   gsttag_dep, gstpbutils_dep],
   vs_module_defs: vs_module_defs_dir + 'libgstplayer.def',
 )
 # TODO: gir
 
-gstplayer_dep = declare_dependency(link_with : gstplayer)
+gstplayer_dep = declare_dependency(link_with : gstplayer,
+  include_directories : [libsinc],
+  dependencies : [gstbase_dep, gstvideo_dep, gstaudio_dep,
+                  gsttag_dep, gstpbutils_dep])
