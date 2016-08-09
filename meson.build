@@ -259,21 +259,39 @@ else
 endif
 
 # Mandatory GST deps
-gst_dep = dependency('gstreamer-1.0', version : gst_req)
-gstbase_dep = dependency('gstreamer-base-1.0', version : gst_req)
-gstapp_dep = dependency('gstreamer-app-1.0', version : gst_req)
-gstvideo_dep = dependency('gstreamer-video-1.0', version : gst_req)
-gstpbutils_dep = dependency('gstreamer-pbutils-1.0', version : gst_req)
-gsttag_dep = dependency('gstreamer-tag-1.0', version : gst_req)
-gstfft_dep = dependency('gstreamer-fft-1.0', version : gst_req)
-gstaudio_dep = dependency('gstreamer-audio-1.0', version : gst_req)
-gstriff_dep = dependency('gstreamer-riff-1.0', version : gst_req)
-gstrtp_dep = dependency('gstreamer-rtp-1.0', version : gst_req)
-gstnet_dep = dependency('gstreamer-net-1.0', version : gst_req)
-gstsdp_dep = dependency('gstreamer-sdp-1.0', version : gst_req)
-gstrtsp_dep = dependency('gstreamer-rtsp-1.0', version : gst_req)
-gstcheck_dep = dependency('gstreamer-check-1.0', version : gst_req)
-gstcontroller_dep = dependency('gstreamer-controller-1.0', version : gst_req)
+gst_dep = dependency('gstreamer-1.0', version : gst_req,
+  fallback : ['gstreamer', 'gst_dep'])
+gstbase_dep = dependency('gstreamer-base-1.0', version : gst_req,
+  fallback : ['gstreamer', 'gst_base_dep'])
+gstnet_dep = dependency('gstreamer-net-1.0', version : gst_req,
+  fallback : ['gstreamer', 'gst_net_dep'])
+gstcheck_dep = dependency('gstreamer-check-1.0', version : gst_req,
+  fallback : ['gstreamer', 'gst_check_dep'])
+gstcontroller_dep = dependency('gstreamer-controller-1.0', version : gst_req,
+  fallback : ['gstreamer', 'gst_controller_dep'])
+
+gstpbutils_dep = dependency('gstreamer-pbutils-1.0', version : gst_req,
+    fallback : ['gst-plugins-base', 'pbutils_dep'])
+gstallocators_dep = dependency('gstreamer-allocators-1.0', version : gst_req,
+    fallback : ['gst-plugins-base', 'allocators_dep'])
+gstapp_dep = dependency('gstreamer-app-1.0', version : gst_req,
+    fallback : ['gst-plugins-base', 'app_dep'])
+gstaudio_dep = dependency('gstreamer-audio-1.0', version : gst_req,
+    fallback : ['gst-plugins-base', 'audio_dep'])
+gstfft_dep = dependency('gstreamer-fft-1.0', version : gst_req,
+    fallback : ['gst-plugins-base', 'fft_dep'])
+gstriff_dep = dependency('gstreamer-riff-1.0', version : gst_req,
+    fallback : ['gst-plugins-base', 'riff_dep'])
+gstrtp_dep = dependency('gstreamer-rtp-1.0', version : gst_req,
+    fallback : ['gst-plugins-base', 'rtp_dep'])
+gstrtsp_dep = dependency('gstreamer-rtsp-1.0', version : gst_req,
+    fallback : ['gst-plugins-base', 'rtsp_dep'])
+gstsdp_dep = dependency('gstreamer-sdp-1.0', version : gst_req,
+    fallback : ['gst-plugins-base', 'sdp_dep'])
+gsttag_dep = dependency('gstreamer-tag-1.0', version : gst_req,
+    fallback : ['gst-plugins-base', 'tag_dep'])
+gstvideo_dep = dependency('gstreamer-video-1.0', version : gst_req,
+    fallback : ['gst-plugins-base', 'video_dep'])
 
 libm = cc.find_library('m', required : false)
 glib_dep = dependency('glib-2.0', version : glib_req)
