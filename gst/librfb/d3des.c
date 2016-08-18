@@ -26,11 +26,12 @@
  * (GEnie : OUTER; CIS : [71755,204]) Graven Imagery, 1992.
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
+
 #ifdef HAVE_STDINT_H
 #include <stdint.h>
-#else
-#include "_stdint.h"
 #endif
 
 #include "d3des.h"
