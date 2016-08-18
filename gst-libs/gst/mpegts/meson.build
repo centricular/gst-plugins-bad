@@ -24,12 +24,12 @@ mpegts_h = custom_target('mpegtsenum_h',
   input : mpegts_headers,
   install : true,
   install_dir : 'include/gstreamer-1.0/gst/mpegts',
-  command : [mkenums, perl, glib_mkenums, '@OUTPUT@', '@INPUT@'])
+  command : [mkenums, glib_mkenums, '@OUTPUT@', '@INPUT@'])
 
 mpegts_c = custom_target('mpegtsenum_c',
   output : 'gstmpegts-enumtypes.c',
   input : mpegts_headers,
-  command : [mkenums, perl, glib_mkenums, '@OUTPUT@', '@INPUT@'])
+  command : [mkenums, glib_mkenums, '@OUTPUT@', '@INPUT@'])
 
 gstmpegts = library('gstmpegts-' + api_version,
   mpegts_sources, mpegts_h, mpegts_c,

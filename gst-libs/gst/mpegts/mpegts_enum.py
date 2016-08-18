@@ -7,10 +7,18 @@
 
 import sys, os, shutil, subprocess
 
-# [perl, glib-mkenums]
-cmd = [sys.argv[1], sys.argv[2]]
-ofilename = sys.argv[3]
-headers = sys.argv[4:]
+cmd = []
+argn = 1
+# Find the full command needed to run glib-mkenums
+# On UNIX-like, this is just the full path to glib-mkenums
+# On Windows, this is the full path to interpreter + full path to glib-mkenums
+for arg in sys.argv[1:]:
+    cmd.append(arg)
+    argn += 1
+    if arg.endswith('glib-mkenums'):
+        break
+ofilename = sys.argv[argn]
+headers = sys.argv[argn + 1:]
 
 inc = '\n'.join(['#include"%s"' % i for i in headers])
 

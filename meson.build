@@ -341,7 +341,6 @@ libsinc = include_directories('gst-libs')
 vs_module_defs_dir = meson.source_root() + '/win32/common/'
 
 # Used by the *_mkenum.py helper scripts
-perl = find_program('perl')
 glib_mkenums = find_program('glib-mkenums')
 
 subdir('gst-libs')
