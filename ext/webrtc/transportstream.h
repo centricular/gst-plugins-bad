@@ -61,6 +61,7 @@ struct _TransportStream
 
   GArray                   *ptmap;                  /* array of PtMapItem's */
   GArray                   *remote_ssrcmap;         /* array of SsrcMapItem's */
+  gboolean                  output_connected;       /* whether receive bin is connected to rtpbin */
 };
 
 struct _TransportStreamClass
