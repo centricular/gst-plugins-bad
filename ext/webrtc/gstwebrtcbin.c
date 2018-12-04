@@ -4902,16 +4902,50 @@ gst_webrtc_bin_class_init (GstWebRTCBinClass * klass)
   g_object_class_install_property (gobject_class,
       PROP_LOCAL_DESCRIPTION,
       g_param_spec_boxed ("local-description", "Local Description",
-          "The local SDP description to use for this connection",
+          "The local SDP description in use for this connection. "
+          "Favours a pending description over the current description",
           GST_TYPE_WEBRTC_SESSION_DESCRIPTION,
-          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
+
+  g_object_class_install_property (gobject_class,
+      PROP_CURRENT_LOCAL_DESCRIPTION,
+      g_param_spec_boxed ("current-local-description",
+          "Current Local Description",
+          "The current local SDP description in use for this connection",
+          GST_TYPE_WEBRTC_SESSION_DESCRIPTION,
+          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
+
+  g_object_class_install_property (gobject_class,
+      PROP_PENDING_LOCAL_DESCRIPTION,
+      g_param_spec_boxed ("pending-local-description",
+          "Pending Local Description",
+          "The pending local SDP description in use for this connection",
+          GST_TYPE_WEBRTC_SESSION_DESCRIPTION,
+          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class,
       PROP_REMOTE_DESCRIPTION,
       g_param_spec_boxed ("remote-description", "Remote Description",
-          "The remote SDP description to use for this connection",
+          "The remote SDP description to use for this connection. "
+          "Favours a pending description over the current description",
           GST_TYPE_WEBRTC_SESSION_DESCRIPTION,
-          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
+
+  g_object_class_install_property (gobject_class,
+      PROP_CURRENT_REMOTE_DESCRIPTION,
+      g_param_spec_boxed ("current-remote-description",
+          "Current Remote Description",
+          "The current remote SDP description to use for this connection",
+          GST_TYPE_WEBRTC_SESSION_DESCRIPTION,
+          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
+
+  g_object_class_install_property (gobject_class,
+      PROP_PENDING_REMOTE_DESCRIPTION,
+      g_param_spec_boxed ("pending-remote-description",
+          "Pending Remote Description",
+          "The pending remote SDP description to use for this connection",
+          GST_TYPE_WEBRTC_SESSION_DESCRIPTION,
+          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class,
       PROP_STUN_SERVER,
