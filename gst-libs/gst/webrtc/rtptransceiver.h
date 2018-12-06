@@ -58,8 +58,15 @@ struct _GstWebRTCRTPTransceiverClass
 {
   GstObjectClass        parent_class;
 
+  void                  (*set_direction)        (GstWebRTCRTPTransceiver * trans,
+                                                 GstWebRTCRTPTransceiverDirection direction);
+
   gpointer              _padding[GST_PADDING];
 };
+
+GST_WEBRTC_API
+void                        gst_webrtc_rtp_transceiver_set_direction (GstWebRTCRTPTransceiver * trans,
+                                                                      GstWebRTCRTPTransceiverDirection direction);
 
 G_END_DECLS
 
