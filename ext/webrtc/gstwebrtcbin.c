@@ -2356,7 +2356,7 @@ _create_offer_task (GstWebRTCBin * webrtc, const GstStructure * options)
     guint bundle_media_index;
 
     if (last_offer && _parse_bundle (last_offer, &last_bundle) && last_bundle
-        && last_bundle[0]
+        && last_bundle && last_bundle[0]
         && _get_bundle_index (last_offer, last_bundle, &bundle_media_index)) {
       bundle_ufrag =
           g_strdup (_media_get_ice_ufrag (last_offer, bundle_media_index));
