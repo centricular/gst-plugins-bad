@@ -300,7 +300,8 @@ gst_webrtc_bin_pad_new (const gchar * name, GstPadDirection direction)
 G_DEFINE_TYPE_WITH_CODE (GstWebRTCBin, gst_webrtc_bin, GST_TYPE_BIN,
     G_ADD_PRIVATE (GstWebRTCBin)
     GST_DEBUG_CATEGORY_INIT (gst_webrtc_bin_debug, "webrtcbin", 0,
-        "webrtcbin element"););
+        "webrtcbin element");
+    );
 
 static GstPad *_connect_input_stream (GstWebRTCBin * webrtc,
     GstWebRTCBinPad * pad);
@@ -1232,8 +1233,8 @@ _check_if_negotiation_is_needed (GstWebRTCBin * webrtc)
   /* If connection has created any RTCDataChannel's, and no m= section has
    * been negotiated yet for data, return "true". */
   if (webrtc->priv->data_channels->len > 0) {
-    if (_message_get_datachannel_index (webrtc->
-            current_local_description->sdp) >= G_MAXUINT) {
+    if (_message_get_datachannel_index (webrtc->current_local_description->
+            sdp) >= G_MAXUINT) {
       GST_LOG_OBJECT (webrtc,
           "no data channel media section and have %u " "transports",
           webrtc->priv->data_channels->len);
@@ -3300,6 +3301,38 @@ _filter_sdp_fields (GQuark field_id, const GValue * value,
 }
 
 static void
+_set_rtx_ptmap_from_stream (GstWebRTCBin * webrtc, TransportStream * stream)
+{
+  gint *rtx_pt;
+  gsize rtx_count;
+
+  rtx_pt = transport_stream_get_all_pt (stream, "RTX", &rtx_count);
+  GST_LOG_OBJECT (stream, "have %" G_GSIZE_FORMAT " rtx payloads", rtx_count);
+  if (rtx_pt) {
+    GstStructure *pt_map = gst_structure_new_empty ("application/x-rtp-pt-map");
+    gsize i;
+
+    for (i = 0; i < rtx_count; i++) {
+      GstCaps *rtx_caps = transport_stream_get_caps_for_pt (stream, rtx_pt[i]);
+      const GstStructure *s = gst_caps_get_structure (rtx_caps, 0);
+      const gchar *apt = gst_structure_get_string (s, "apt");
+
+      GST_LOG_OBJECT (stream, "setting rtx mapping: %s -> %u", apt, rtx_pt[i]);
+      gst_structure_set (pt_map, apt, G_TYPE_UINT, rtx_pt[i], NULL);
+    }
+
+    GST_DEBUG_OBJECT (stream, "setting payload map on %" GST_PTR_FORMAT " : %"
+        GST_PTR_FORMAT " and %" GST_PTR_FORMAT, stream->rtxreceive,
+        stream->rtxsend, pt_map);
+
+    if (stream->rtxreceive)
+      g_object_set (stream->rtxreceive, "payload-type-map", pt_map, NULL);
+    if (stream->rtxsend)
+      g_object_set (stream->rtxsend, "payload-type-map", pt_map, NULL);
+  }
+}
+
+static void
 _update_transport_ptmap_from_media (GstWebRTCBin * webrtc,
     TransportStream * stream, const GstSDPMessage * sdp, guint media_idx)
 {
@@ -3380,6 +3413,7 @@ _update_transceiver_from_sdp_media (GstWebRTCBin * webrtc,
   const GstSDPMedia *media = gst_sdp_message_get_media (sdp, media_idx);
   GstWebRTCDTLSSetup new_setup;
   gboolean new_rtcp_mux, new_rtcp_rsize;
+  ReceiveState receive_state = 0;
   int i;
 
   rtp_trans->mline = media_idx;
@@ -3446,8 +3480,6 @@ _update_transceiver_from_sdp_media (GstWebRTCBin * webrtc,
   }
 
   if (new_dir != prev_dir) {
-    ReceiveState receive_state = 0;
-
     GST_TRACE_OBJECT (webrtc, "transceiver direction change");
 
     if (new_dir == GST_WEBRTC_RTP_TRANSCEIVER_DIRECTION_INACTIVE) {
@@ -3527,20 +3559,25 @@ _update_transceiver_from_sdp_media (GstWebRTCBin * webrtc,
       receive_state = RECEIVE_STATE_DROP;
     }
 
-    if (!bundled || bundle_idx == media_idx)
-      g_object_set (stream, "dtls-client",
-          new_setup == GST_WEBRTC_DTLS_SETUP_ACTIVE, NULL);
-
-    /* Must be after setting the "dtls-client" so that data is not pushed into
-     * the dtlssrtp elements before the ssl direction has been set which will
-     * throw SSL errors */
-    if (receive_state > 0)
-      transport_receive_bin_set_receive_state (stream->receive_bin,
-          receive_state);
-
     rtp_trans->mline = media_idx;
     rtp_trans->current_direction = new_dir;
   }
+
+  if (!bundled || bundle_idx == media_idx) {
+    if (stream->rtxsend || stream->rtxreceive) {
+      _set_rtx_ptmap_from_stream (webrtc, stream);
+    }
+
+    g_object_set (stream, "dtls-client",
+        new_setup == GST_WEBRTC_DTLS_SETUP_ACTIVE, NULL);
+  }
+
+  /* Must be after setting the "dtls-client" so that data is not pushed into
+   * the dtlssrtp elements before the ssl direction has been set which will
+   * throw SSL errors */
+  if (receive_state > 0)
+    transport_receive_bin_set_receive_state (stream->receive_bin,
+        receive_state);
 }
 
 /* must be called with the pc lock held */
@@ -4617,7 +4654,8 @@ on_rtpbin_request_aux_sender (GstElement * rtpbin, guint session_id,
     GstWebRTCBin * webrtc)
 {
   TransportStream *stream;
-  GstStructure *pt_map = gst_structure_new_empty ("application/x-rtp-pt-map");
+  gboolean have_rtx = FALSE;
+  GstStructure *pt_map = NULL;
   GstElement *ret = NULL;
   GstWebRTCRTPTransceiver *trans;
 
@@ -4625,41 +4663,28 @@ on_rtpbin_request_aux_sender (GstElement * rtpbin, guint session_id,
   trans = _find_transceiver (webrtc, &session_id,
       (FindTransceiverFunc) transceiver_match_for_mline);
 
-  if (stream) {
-    guint i;
-
-    for (i = 0; i < stream->ptmap->len; i++) {
-      PtMapItem *item = &g_array_index (stream->ptmap, PtMapItem, i);
-      if (!gst_caps_is_empty (item->caps)) {
-        GstStructure *s = gst_caps_get_structure (item->caps, 0);
-        gint pt;
-        const gchar *apt_str = gst_structure_get_string (s, "apt");
-
-        if (!apt_str)
-          continue;
-
-        if (!g_strcmp0 (gst_structure_get_string (s, "encoding-name"), "RTX") &&
-            gst_structure_get_int (s, "payload", &pt)) {
-          gst_structure_set (pt_map, apt_str, G_TYPE_UINT, pt, NULL);
-        }
-      }
-    }
-  }
+  if (stream)
+    have_rtx = transport_stream_get_pt (stream, "RTX") != 0;
 
   GST_LOG_OBJECT (webrtc, "requesting aux sender for stream %" GST_PTR_FORMAT
       " with transport %" GST_PTR_FORMAT " and pt map %" GST_PTR_FORMAT, stream,
       trans, pt_map);
 
-  if (gst_structure_n_fields (pt_map)) {
+  if (have_rtx) {
     GstElement *rtx;
     GstPad *pad;
     gchar *name;
 
+    if (stream->rtxsend) {
+      GST_WARNING_OBJECT (webrtc, "rtprtxsend already created! rtpbin bug?!");
+      goto out;
+    }
+
     GST_INFO ("creating AUX sender");
     ret = gst_bin_new (NULL);
     rtx = gst_element_factory_make ("rtprtxsend", NULL);
-    g_object_set (rtx, "payload-type-map", pt_map, "max-size-packets", 500,
-        NULL);
+    g_object_set (rtx, "max-size-packets", 500, NULL);
+    _set_rtx_ptmap_from_stream (webrtc, stream);
 
     if (WEBRTC_TRANSCEIVER (trans)->local_rtx_ssrc_map)
       g_object_set (rtx, "ssrc-map",
@@ -4678,9 +4703,13 @@ on_rtpbin_request_aux_sender (GstElement * rtpbin, guint session_id,
     gst_element_add_pad (ret, gst_ghost_pad_new (name, pad));
     g_free (name);
     gst_object_unref (pad);
+
+    stream->rtxsend = gst_object_ref (rtx);
   }
 
-  gst_structure_free (pt_map);
+out:
+  if (pt_map)
+    gst_structure_free (pt_map);
 
   return ret;
 }
@@ -4703,28 +4732,27 @@ on_rtpbin_request_aux_receiver (GstElement * rtpbin, guint session_id,
     rtx_pt = transport_stream_get_pt (stream, "RTX");
   }
 
-  GST_LOG_OBJECT (webrtc, "requesting aux receiver for stream %" GST_PTR_FORMAT
-      " with pt red:%u rtx:%u", stream, red_pt, rtx_pt);
+  GST_LOG_OBJECT (webrtc, "requesting aux receiver for stream %" GST_PTR_FORMAT,
+      stream);
 
   if (red_pt || rtx_pt)
     ret = gst_bin_new (NULL);
 
   if (rtx_pt) {
-    GstCaps *rtx_caps = transport_stream_get_caps_for_pt (stream, rtx_pt);
-    GstElement *rtx = gst_element_factory_make ("rtprtxreceive", NULL);
-    GstStructure *pt_map;
-    const GstStructure *s = gst_caps_get_structure (rtx_caps, 0);
+    if (stream->rtxreceive) {
+      GST_WARNING_OBJECT (webrtc,
+          "rtprtxreceive already created! rtpbin bug?!");
+      goto error;
+    }
 
-    gst_bin_add (GST_BIN (ret), rtx);
+    stream->rtxreceive = gst_element_factory_make ("rtprtxreceive", NULL);
+    _set_rtx_ptmap_from_stream (webrtc, stream);
 
-    pt_map = gst_structure_new_empty ("application/x-rtp-pt-map");
-    gst_structure_set (pt_map, gst_structure_get_string (s, "apt"), G_TYPE_UINT,
-        rtx_pt, NULL);
-    g_object_set (rtx, "payload-type-map", pt_map, NULL);
+    gst_bin_add (GST_BIN (ret), stream->rtxreceive);
 
-    sinkpad = gst_element_get_static_pad (rtx, "sink");
+    sinkpad = gst_element_get_static_pad (stream->rtxreceive, "sink");
 
-    prev = rtx;
+    prev = gst_object_ref (stream->rtxreceive);
   }
 
   if (red_pt) {
@@ -4762,7 +4790,13 @@ on_rtpbin_request_aux_receiver (GstElement * rtpbin, guint session_id,
     gst_element_add_pad (ret, ghost);
   }
 
+out:
   return ret;
+
+error:
+  if (ret)
+    gst_object_unref (ret);
+  goto out;
 }
 
 static GstElement *
