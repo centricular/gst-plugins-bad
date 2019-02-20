@@ -2653,7 +2653,7 @@ _create_answer_task (GstWebRTCBin * webrtc, const GstStructure * options)
     }
 
     if (last_answer && _parse_bundle (last_answer, &last_bundle)
-        && last_bundle[0]
+        && last_bundle && last_bundle[0]
         && _get_bundle_index (last_answer, last_bundle, &bundle_media_index)) {
       bundle_ufrag =
           g_strdup (_media_get_ice_ufrag (last_answer, bundle_media_index));
