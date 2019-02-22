@@ -112,6 +112,8 @@ typedef struct {
   GstVideoInfo        input_info;     /* buffer configuration for buffers sent to NVENC */
 
   GstFlowReturn   last_flow;          /* ATOMIC */
+
+  gboolean            in_acquire;     /* used to possibly unblock acquire on shutdown */
 } GstNvBaseEnc;
 
 typedef struct {

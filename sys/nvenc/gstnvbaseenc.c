@@ -897,6 +897,13 @@ gst_nv_base_enc_stop_bitstream_thread (GstNvBaseEnc * nvenc)
   g_async_queue_unlock (nvenc->bitstream_pool);
   g_async_queue_unlock (nvenc->bitstream_queue);
 
+  g_async_queue_lock (nvenc->in_bufs_pool);
+  if (nvenc->in_acquire) {
+    GST_TRACE_OBJECT (nvenc, "Pushing shutdown cookie into input pool");
+    g_async_queue_push_unlocked (nvenc->in_bufs_pool, SHUTDOWN_COOKIE);
+  }
+  g_async_queue_unlock (nvenc->in_bufs_pool);
+
   /* temporary unlock, so other thread can find and push frame */
   GST_VIDEO_ENCODER_STREAM_UNLOCK (nvenc);
   g_thread_join (nvenc->bitstream_thread);
@@ -1564,9 +1571,32 @@ _acquire_input_buffer (GstNvBaseEnc * nvenc, gpointer * input)
   g_assert (input);
 
   GST_LOG_OBJECT (nvenc, "acquiring input buffer..");
+
+  /* lock the queue before releasing the stream lock otherwise all the buffers
+   * can be removed on shutdown by gst_nv_base_enc_reset_queues() between the
+   * unlock and the pop */
+  g_async_queue_lock (nvenc->in_bufs_pool);
+  nvenc->in_acquire = TRUE;
   GST_VIDEO_ENCODER_STREAM_UNLOCK (nvenc);
-  *input = g_async_queue_pop (nvenc->in_bufs_pool);
+
+  *input = g_async_queue_pop_unlocked (nvenc->in_bufs_pool);
+
   GST_VIDEO_ENCODER_STREAM_LOCK (nvenc);
+  nvenc->in_acquire = FALSE;
+  g_async_queue_unlock (nvenc->in_bufs_pool);
+
+  if (*input == SHUTDOWN_COOKIE) {
+    GST_DEBUG_OBJECT (nvenc, "received shutdown cookie");
+    *input = NULL;
+    return GST_FLOW_FLUSHING;
+  }
+  if (nvenc->bitstream_thread == NULL) {
+    GST_DEBUG_OBJECT (nvenc, "bitstream thread has closed!");
+    *input = NULL;
+    return GST_FLOW_FLUSHING;
+  }
+
+  GST_TRACE_OBJECT (nvenc, "acquired input buffer %" GST_PTR_FORMAT, *input);
 
   return GST_FLOW_OK;
 }
